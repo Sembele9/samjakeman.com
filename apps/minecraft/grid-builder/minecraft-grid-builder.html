@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minecraft Grid Builder - samjakeman.com</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 30px;
+        }
+
+        .controls {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 20px;
+            padding: 20px;
+            background: #f5f5f5;
+            border-radius: 8px;
+        }
+
+        .control-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .control-group label {
+            font-weight: 600;
+            color: #555;
+        }
+
+        .control-group input[type="number"] {
+            width: 80px;
+            padding: 8px;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+
+        button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 14px;
+        }
+
+        .btn-primary {
+            background: #667eea;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #5568d3;
+        }
+
+        .btn-secondary {
+            background: #48bb78;
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background: #38a169;
+        }
+
+        .btn-danger {
+            background: #f56565;
+            color: white;
+        }
+
+        .btn-danger:hover {
+            background: #e53e3e;
+        }
+
+        .color-palette {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .color-option {
+            width: 40px;
+            height: 40px;
+            border-radius: 5px;
+            cursor: pointer;
+            border: 3px solid transparent;
+            transition: all 0.2s;
+        }
+
+        .color-option:hover {
+            transform: scale(1.1);
+        }
+
+        .color-option.active {
+            border-color: #333;
+            box-shadow: 0 0 10px rgba(0,0,0,0.3);
+        }
+
+        #customColor {
+            width: 40px;
+            height: 40px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .canvas-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+            overflow: auto;
+        }
+
+        #gridCanvas {
+            border: 2px solid #333;
+            cursor: crosshair;
+            image-rendering: pixelated;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎮 Minecraft Grid Builder</h1>
+        
+        <div class="controls">
+            <div class="control-group">
+                <label for="gridWidth">Width:</label>
+                <input type="number" id="gridWidth" value="25" min="1" max="200">
+            </div>
+            
+            <div class="control-group">
+                <label for="gridHeight">Height:</label>
+                <input type="number" id="gridHeight" value="25" min="1" max="200">
+            </div>
+            
+            <button class="btn-primary" onclick="generateGrid()">Generate Grid</button>
+            
+            <div class="color-palette">
+                <label>Colors:</label>
+                <div class="color-option active" style="background: #8B4513;" data-color="#8B4513" title="Brown (Dirt)"></div>
+                <div class="color-option" style="background: #228B22;" data-color="#228B22" title="Green (Grass)"></div>
+                <div class="color-option" style="background: #808080;" data-color="#808080" title="Gray (Stone)"></div>
+                <div class="color-option" style="background: #CD853F;" data-color="#CD853F" title="Tan (Wood)"></div>
+                <div class="color-option" style="background: #0000FF;" data-color="#0000FF" title="Blue (Water)"></div>
+                <div class="color-option" style="background: #FF0000;" data-color="#FF0000" title="Red (Brick)"></div>
+                <div class="color-option" style="background: #FFFF00;" data-color="#FFFF00" title="Yellow (Sand)"></div>
+                <div class="color-option" style="background: #FFFFFF;" data-color="#FFFFFF" title="White (Snow)"></div>
+                <div class="color-option" style="background: #000000;" data-color="#000000" title="Black (Obsidian)"></div>
+                <input type="color" id="customColor" value="#8B4513" title="Custom Color">
+            </div>
+        </div>
+
+        <div class="canvas-container">
+            <canvas id="gridCanvas"></canvas>
+        </div>
+
+        <div class="action-buttons">
+            <button class="btn-secondary" onclick="undo()">↶ Undo</button>
+            <button class="btn-secondary" onclick="redo()">↷ Redo</button>
+            <button class="btn-danger" onclick="resetGrid()">🔄 Reset</button>
+            <button class="btn-primary" onclick="exportImage()">💾 Export PNG</button>
+        </div>
+    </div>
+
+    <script>
+        const canvas = document.getElementById('gridCanvas');
+        const ctx = canvas.getContext('2d');
+        const cellSize = 20;
+        let gridWidth = 25;
+        let gridHeight = 25;
+        let currentColor = '#8B4513';
+        let isDrawing = false;
+        let grid = [];
+        let history = [];
+        let historyStep = -1;
+
+        // Initialize grid
+        function initializeGrid() {
+            grid = Array(gridHeight).fill().map(() => Array(gridWidth).fill(null));
+            saveState();
+        }
+
+        // Generate grid based on input
+        function generateGrid() {
+            gridWidth = parseInt(document.getElementById('gridWidth').value);
+            gridHeight = parseInt(document.getElementById('gridHeight').value);
+            
+            if (gridWidth < 1 || gridHeight < 1 || gridWidth > 200 || gridHeight > 200) {
+                alert('Grid dimensions must be between 1 and 200');
+                return;
+            }
+            
+            canvas.width = gridWidth * cellSize;
+            canvas.height = gridHeight * cellSize;
+            
+            initializeGrid();
+            drawGrid();
+        }
+
+        // Draw the grid
+        function drawGrid() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            // Draw filled cells
+            for (let y = 0; y < gridHeight; y++) {
+                for (let x = 0; x < gridWidth; x++) {
+                    if (grid[y][x]) {
+                        ctx.fillStyle = grid[y][x];
+                        ctx.fillRect(x * cellSize, y * cellSize, cellSize, cellSize);
+                    }
+                }
+            }
+            
+            // Draw grid lines
+            ctx.strokeStyle = '#ddd';
+            ctx.lineWidth = 1;
+            
+            for (let x = 0; x <= gridWidth; x++) {
+                ctx.beginPath();
+                ctx.moveTo(x * cellSize, 0);
+                ctx.lineTo(x * cellSize, canvas.height);
+                ctx.stroke();
+            }
+            
+            for (let y = 0; y <= gridHeight; y++) {
+                ctx.beginPath();
+                ctx.moveTo(0, y * cellSize);
+                ctx.lineTo(canvas.width, y * cellSize);
+                ctx.stroke();
+            }
+        }
+
+        // Get cell coordinates from mouse position
+        function getCellFromMouse(e) {
+            const rect = canvas.getBoundingClientRect();
+            const x = Math.floor((e.clientX - rect.left) / cellSize);
+            const y = Math.floor((e.clientY - rect.top) / cellSize);
+            return { x, y };
+        }
+
+        // Fill cell
+        function fillCell(x, y) {
+            if (x >= 0 && x < gridWidth && y >= 0 && y < gridHeight) {
+                grid[y][x] = currentColor;
+                drawGrid();
+            }
+        }
+
+        // Save state for undo/redo
+        function saveState() {
+            historyStep++;
+            history = history.slice(0, historyStep);
+            history.push(JSON.parse(JSON.stringify(grid)));
+        }
+
+        // Undo
+        function undo() {
+            if (historyStep > 0) {
+                historyStep--;
+                grid = JSON.parse(JSON.stringify(history[historyStep]));
+                drawGrid();
+            }
+        }
+
+        // Redo
+        function redo() {
+            if (historyStep < history.length - 1) {
+                historyStep++;
+                grid = JSON.parse(JSON.stringify(history[historyStep]));
+                drawGrid();
+            }
+        }
+
+        // Reset grid
+        function resetGrid() {
+            if (confirm('Are you sure you want to reset the grid?')) {
+                initializeGrid();
+                drawGrid();
+            }
+        }
+
+        // Export as PNG
+        function exportImage() {
+            const link = document.createElement('a');
+            link.download = `minecraft-grid-${gridWidth}x${gridHeight}.png`;
+            link.href = canvas.toDataURL();
+            link.click();
+        }
+
+        // Mouse events
+        canvas.addEventListener('mousedown', (e) => {
+            isDrawing = true;
+            const { x, y } = getCellFromMouse(e);
+            fillCell(x, y);
+        });
+
+        canvas.addEventListener('mousemove', (e) => {
+            if (isDrawing) {
+                const { x, y } = getCellFromMouse(e);
+                fillCell(x, y);
+            }
+        });
+
+        canvas.addEventListener('mouseup', () => {
+            if (isDrawing) {
+                isDrawing = false;
+                saveState();
+            }
+        });
+
+        canvas.addEventListener('mouseleave', () => {
+            if (isDrawing) {
+                isDrawing = false;
+                saveState();
+            }
+        });
+
+        // Color selection
+        document.querySelectorAll('.color-option').forEach(option => {
+            option.addEventListener('click', (e) => {
+                document.querySelectorAll('.color-option').forEach(opt => opt.classList.remove('active'));
+                e.target.classList.add('active');
+                currentColor = e.target.dataset.color;
+            });
+        });
+
+        document.getElementById('customColor').addEventListener('input', (e) => {
+            currentColor = e.target.value;
+            document.querySelectorAll('.color-option').forEach(opt => opt.classList.remove('active'));
+        });
+
+        // Initialize on load
+        generateGrid();
+    </script>
+</body>
+</html>
