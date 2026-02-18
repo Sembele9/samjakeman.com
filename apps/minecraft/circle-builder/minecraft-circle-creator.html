@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minecraft Circle Creator - samjakeman.com</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 14px;
+        }
+
+        .controls {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 20px;
+            padding: 20px;
+            background: #f5f5f5;
+            border-radius: 8px;
+            align-items: center;
+        }
+
+        .control-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .control-group label {
+            font-weight: 600;
+            color: #555;
+        }
+
+        .control-group input[type="number"],
+        .control-group input[type="range"] {
+            padding: 8px;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+
+        .control-group input[type="number"] {
+            width: 80px;
+        }
+
+        .control-group input[type="range"] {
+            width: 150px;
+        }
+
+        button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 14px;
+        }
+
+        .btn-primary {
+            background: #667eea;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #5568d3;
+        }
+
+        .btn-secondary {
+            background: #48bb78;
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background: #38a169;
+        }
+
+        .canvas-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+            overflow: auto;
+        }
+
+        #circleCanvas {
+            border: 2px solid #333;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+
+        .info-panel {
+            background: #e8f5e9;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border-left: 4px solid #4caf50;
+        }
+
+        .info-panel h3 {
+            color: #2e7d32;
+            margin-bottom: 10px;
+            font-size: 16px;
+        }
+
+        .info-panel .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 10px;
+            color: #555;
+        }
+
+        .stat-item {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .stat-label {
+            font-weight: 600;
+        }
+
+        .shape-options {
+            display: flex;
+            gap: 10px;
+        }
+
+        .shape-btn {
+            padding: 8px 15px;
+            background: white;
+            border: 2px solid #667eea;
+            color: #667eea;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .shape-btn.active {
+            background: #667eea;
+            color: white;
+        }
+
+        .shape-btn:hover {
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>⭕ Minecraft Circle Creator</h1>
+        <p class="subtitle">Generate perfect circles and ellipses for your Minecraft builds</p>
+        
+        <div class="info-panel">
+            <h3>Circle Info:</h3>
+            <div class="stats">
+                <div class="stat-item">
+                    <span class="stat-label">Diameter:</span>
+                    <span id="diameter">0</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">Blocks needed:</span>
+                    <span id="blocksNeeded">0</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">Circumference:</span>
+                    <span id="circumference">0</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="controls">
+            <div class="control-group">
+                <label for="widthInput">Width:</label>
+                <input type="number" id="widthInput" min="1" max="100" value="20">
+            </div>
+            
+            <div class="control-group">
+                <label for="heightInput">Height:</label>
+                <input type="number" id="heightInput" min="1" max="100" value="20">
+            </div>
+            
+            <div class="control-group">
+                <label>
+                    <input type="checkbox" id="showGrid" checked> Show Grid
+                </label>
+            </div>
+
+            <div class="control-group">
+                <label>
+                    <input type="checkbox" id="showCenter" checked> Show Center
+                </label>
+            </div>
+        </div>
+
+        <div class="canvas-container">
+            <canvas id="circleCanvas"></canvas>
+        </div>
+
+        <div class="action-buttons">
+            <button class="btn-primary" onclick="exportImage()">💾 Export PNG</button>
+        </div>
+    </div>
+
+    <script>
+        const canvas = document.getElementById('circleCanvas');
+        const ctx = canvas.getContext('2d');
+        const cellSize = 8;
+        let ellipseWidth = 20;
+        let ellipseHeight = 20;
+        // gridSize will be dynamically calculated
+        function getGridSize() {
+            // No artificial cap, always enough to fit the ellipse/circle
+            return Math.max(ellipseWidth, ellipseHeight) * 2 + 8; // +8 for extra padding for numbers
+        }
+        function resizeCanvasToFit() {
+            const gridSize = getGridSize();
+            canvas.width = gridSize * cellSize;
+            canvas.height = gridSize * cellSize;
+            canvas.style.width = (gridSize * cellSize) + 'px';
+            canvas.style.height = (gridSize * cellSize) + 'px';
+        }
+        resizeCanvasToFit();
+
+        // Update ellipse dimensions
+        document.getElementById('widthInput').addEventListener('input', (e) => {
+            ellipseWidth = parseInt(e.target.value);
+            resizeCanvasToFit();
+            drawCanvas();
+        });
+
+        document.getElementById('heightInput').addEventListener('input', (e) => {
+            ellipseHeight = parseInt(e.target.value);
+            resizeCanvasToFit();
+            drawCanvas();
+        });
+
+        // Update on checkbox change
+        document.getElementById('showGrid').addEventListener('change', drawCanvas);
+        document.getElementById('showCenter').addEventListener('change', drawCanvas);
+
+        // Draw the canvas
+        function drawCanvas() {
+            const gridSize = getGridSize();
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            const centerX = Math.floor(gridSize / 2);
+            const centerY = Math.floor(gridSize / 2);
+
+            // Draw grid
+            if (document.getElementById('showGrid').checked) {
+                ctx.strokeStyle = '#e0e0e0';
+                ctx.lineWidth = 1;
+                for (let x = 0; x <= gridSize; x++) {
+                    ctx.beginPath();
+                    ctx.moveTo(x * cellSize, 0);
+                    ctx.lineTo(x * cellSize, canvas.height);
+                    ctx.stroke();
+                }
+                for (let y = 0; y <= gridSize; y++) {
+                    ctx.beginPath();
+                    ctx.moveTo(0, y * cellSize);
+                    ctx.lineTo(canvas.width, y * cellSize);
+                    ctx.stroke();
+                }
+
+                // Draw center lines
+                if (document.getElementById('showCenter').checked) {
+                    ctx.strokeStyle = '#ff9800';
+                    ctx.lineWidth = 2;
+                    ctx.setLineDash([5, 5]);
+                    ctx.beginPath();
+                    ctx.moveTo(centerX * cellSize, 0);
+                    ctx.lineTo(centerX * cellSize, canvas.height);
+                    ctx.stroke();
+                    ctx.beginPath();
+                    ctx.moveTo(0, centerY * cellSize);
+                    ctx.lineTo(canvas.width, centerY * cellSize);
+                    ctx.stroke();
+                    ctx.setLineDash([]);
+                }
+            }
+
+            // Get ellipse blocks
+            const blocks = getEllipseBlocks(centerX, centerY, ellipseWidth, ellipseHeight);
+
+            // Draw blocks with improved appearance
+            blocks.forEach(block => {
+                ctx.fillStyle = '#6B7280';
+                ctx.fillRect(block.x * cellSize, block.y * cellSize, cellSize, cellSize);
+                // Draw block outline
+                ctx.strokeStyle = '#4B5563';
+                ctx.lineWidth = 1;
+                ctx.strokeRect(block.x * cellSize, block.y * cellSize, cellSize, cellSize);
+            });
+
+            // Block row/col numbers for Minecraft building - placed outside blocks
+            const blockSet = new Set(blocks.map(b => `${b.x},${b.y}`));
+            const drawnLabels = new Set(); // Track which segments we've labeled
+            
+            // Group by row (y) for horizontal counts
+            const rowMap = {};
+            blocks.forEach(({x, y}) => {
+                if (!rowMap[y]) rowMap[y] = [];
+                rowMap[y].push(x);
+            });
+            
+            Object.entries(rowMap).forEach(([y, xs]) => {
+                xs.sort((a, b) => a - b);
+                let i = 0;
+                while (i < xs.length) {
+                    let start = i;
+                    let count = 1;
+                    while (i + 1 < xs.length && xs[i + 1] === xs[i] + 1) {
+                        count++;
+                        i++;
+                    }
+                    
+                    const yNum = parseInt(y);
+                    const midX = (xs[start] + xs[i]) / 2;
+                    
+                    // Determine if blocks in this row segment are part of vertical pairs
+                    let allPartOfVerticalPairs = true;
+                    for (let xi = start; xi <= i; xi++) {
+                        const x = xs[xi];
+                        const hasBelow = blockSet.has(`${x},${yNum + 1}`);
+                        const hasAbove = blockSet.has(`${x},${yNum - 1}`);
+                        if (!hasBelow && !hasAbove) {
+                            allPartOfVerticalPairs = false;
+                            break;
+                        }
+                    }
+                    
+                    // Only label horizontal segments (not part of vertical pairs)
+                    if (!allPartOfVerticalPairs && count >= 1) {
+                        const labelKey = `h-${y}-${xs[start]}-${xs[i]}`;
+                        if (!drawnLabels.has(labelKey)) {
+                            // Determine if we're in top or bottom half
+                            const isBottomHalf = yNum > centerY;
+                            const offsetY = isBottomHalf ? 1.8 : -0.8;
+                            
+                            let color = count === 1 ? 'black' : (count === 2 ? 'red' : 'black');
+                            
+                            ctx.save();
+                            ctx.font = 'bold 9px Arial';
+                            ctx.textAlign = 'center';
+                            ctx.textBaseline = 'middle';
+                            ctx.fillStyle = color;
+                            ctx.fillText(count.toString(), (midX + 0.5) * cellSize, (yNum + offsetY) * cellSize);
+                            ctx.restore();
+                            drawnLabels.add(labelKey);
+                        }
+                    }
+                    i++;
+                }
+            });
+            
+            // Group by column (x) for vertical pairs
+            const colMap = {};
+            blocks.forEach(({x, y}) => {
+                if (!colMap[x]) colMap[x] = [];
+                colMap[x].push(y);
+            });
+            
+            Object.entries(colMap).forEach(([x, ys]) => {
+                ys.sort((a, b) => a - b);
+                let i = 0;
+                while (i < ys.length) {
+                    let start = i;
+                    let count = 1;
+                    while (i + 1 < ys.length && ys[i + 1] === ys[i] + 1) {
+                        count++;
+                        i++;
+                    }
+                    
+                    // Only show vertical segments with count >= 2
+                    if (count >= 2) {
+                        const xNum = parseInt(x);
+                        const midY = (ys[start] + ys[i]) / 2;
+                        const labelKey = `v-${x}-${ys[start]}-${ys[i]}`;
+                        
+                        if (!drawnLabels.has(labelKey)) {
+                            // Determine if we're in left or right half
+                            const isRightHalf = xNum > centerX;
+                            const offsetX = isRightHalf ? 1.8 : -0.8;
+                            
+                            ctx.save();
+                            ctx.font = 'bold 9px Arial';
+                            ctx.textAlign = 'center';
+                            ctx.textBaseline = 'middle';
+                            ctx.fillStyle = 'green';
+                            ctx.fillText(count.toString(), (xNum + offsetX) * cellSize, (midY + 0.5) * cellSize);
+                            ctx.restore();
+                            drawnLabels.add(labelKey);
+                        }
+                    }
+                    i++;
+                }
+            });
+
+            // Update stats
+            updateStats(blocks);
+        }
+
+        // Get blocks for a circle using Bresenham's circle algorithm
+        function getCircleBlocks(cx, cy, r) {
+            const blocks = new Set();
+
+            // Circle outline using midpoint circle algorithm
+            let x = 0;
+            let y = r;
+            let d = 1 - r;
+
+            const addSymmetricPoints = (cx, cy, x, y) => {
+                blocks.add(`${cx + x},${cy + y}`);
+                blocks.add(`${cx - x},${cy + y}`);
+                blocks.add(`${cx + x},${cy - y}`);
+                blocks.add(`${cx - x},${cy - y}`);
+                blocks.add(`${cx + y},${cy + x}`);
+                blocks.add(`${cx - y},${cy + x}`);
+                blocks.add(`${cx + y},${cy - x}`);
+                blocks.add(`${cx - y},${cy - x}`);
+            };
+
+            while (x <= y) {
+                addSymmetricPoints(cx, cy, x, y);
+                x++;
+                if (d < 0) {
+                    d += 2 * x + 1;
+                } else {
+                    y--;
+                    d += 2 * (x - y) + 1;
+                }
+            }
+
+            return Array.from(blocks).map(coord => {
+                const [x, y] = coord.split(',').map(Number);
+                return { x, y };
+            });
+        }
+
+        // Get blocks for an ellipse using improved Bresenham algorithm
+        function getEllipseBlocks(cx, cy, rx, ry) {
+            const blocks = new Set();
+            
+            // Bresenham's ellipse algorithm for accurate pixel circles
+            let x = 0;
+            let y = ry;
+            let rx2 = rx * rx;
+            let ry2 = ry * ry;
+            let twoRx2 = 2 * rx2;
+            let twoRy2 = 2 * ry2;
+            let px = 0;
+            let py = twoRx2 * y;
+            
+            function plot(x, y) {
+                blocks.add(`${cx + x},${cy + y}`);
+                blocks.add(`${cx - x},${cy + y}`);
+                blocks.add(`${cx + x},${cy - y}`);
+                blocks.add(`${cx - x},${cy - y}`);
+            }
+            
+            // Region 1
+            plot(x, y);
+            let p = Math.round(ry2 - (rx2 * ry) + (0.25 * rx2));
+            
+            while (px < py) {
+                x++;
+                px += twoRy2;
+                if (p < 0) {
+                    p += ry2 + px;
+                } else {
+                    y--;
+                    py -= twoRx2;
+                    p += ry2 + px - py;
+                }
+                plot(x, y);
+            }
+            
+            // Region 2
+            p = Math.round(ry2 * (x + 0.5) * (x + 0.5) + rx2 * (y - 1) * (y - 1) - rx2 * ry2);
+            
+            while (y > 0) {
+                y--;
+                py -= twoRx2;
+                if (p > 0) {
+                    p += rx2 - py;
+                } else {
+                    x++;
+                    px += twoRy2;
+                    p += rx2 - py + px;
+                }
+                plot(x, y);
+            }
+            
+            return Array.from(blocks).map(coord => {
+                const [x, y] = coord.split(',').map(Number);
+                return { x, y };
+            });
+        }
+
+        // Update statistics
+        function updateStats(blocks) {
+            const diameter = `${ellipseWidth * 2} × ${ellipseHeight * 2}`;
+            const circumference = Math.round(Math.PI * (ellipseWidth + ellipseHeight)); // Approximation for ellipse
+
+            document.getElementById('diameter').textContent = diameter;
+            document.getElementById('blocksNeeded').textContent = blocks.length;
+            document.getElementById('circumference').textContent = `~${circumference} blocks`;
+        }
+
+        // Export as PNG
+        function exportImage() {
+            const link = document.createElement('a');
+            link.download = `minecraft-circle-${ellipseWidth}x${ellipseHeight}.png`;
+            link.href = canvas.toDataURL();
+            link.click();
+        }
+
+        // Initialize
+        resizeCanvasToFit();
+        drawCanvas();
+    </script>
+</body>
+</html>
