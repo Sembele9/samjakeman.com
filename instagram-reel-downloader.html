@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Instagram Reel Downloader - Sam Jakeman</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
+            background: #f5f7fa;
+            color: #333;
+            line-height: 1.6;
+        }
+        .header {
+            background: linear-gradient(135deg, #e1306c 0%, #405de6 100%);
+            color: white;
+            padding: 60px 20px 40px;
+            text-align: center;
+        }
+        .header h1 {
+            font-size: clamp(28px, 5vw, 48px);
+            margin-bottom: 8px;
+            font-weight: 700;
+        }
+        .header p {
+            font-size: clamp(14px, 3vw, 16px);
+            opacity: 0.95;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+        .tool-section {
+            margin-bottom: 40px;
+        }
+        label {
+            font-weight: 600;
+            color: #555;
+        }
+        input[type="text"] {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 6px;
+            font-size: 16px;
+            margin-bottom: 16px;
+        }
+        button {
+            background: #e1306c;
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background 0.3s;
+        }
+        button:hover {
+            background: #405de6;
+        }
+        .result {
+            margin-top: 24px;
+            padding: 16px;
+            background: #f9fafb;
+            border-radius: 8px;
+            color: #666;
+        }
+        .back-btn {
+            display: inline-block;
+            margin-bottom: 24px;
+            background: #405de6;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 15px;
+            text-decoration: none;
+        }
+        .back-btn:hover {
+            background: #e1306c;
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <h1>Instagram Reel Downloader</h1>
+        <p>Download Instagram Reels quickly and easily</p>
+    </header>
+    <div class="container">
+        <a href="index.html" class="back-btn">← Back to Home</a>
+        <section class="tool-section">
+            <label for="reelUrl">Instagram Reel URL:</label>
+            <input type="text" id="reelUrl" placeholder="Paste Instagram Reel link here...">
+            <button onclick="alert('This is a placeholder. Actual download functionality is not implemented.')">Download Reel</button>
+            <div class="result" id="result">
+                <em>Note: This is a placeholder tool. Actual download functionality is not implemented.</em>
+            </div>
+        </section>
+    </div>
+</body>
+</html>

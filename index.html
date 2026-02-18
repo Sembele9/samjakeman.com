@@ -12,194 +12,303 @@
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
+            background: #f5f7fa;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .header {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            padding: 20px;
+            color: white;
+            padding: 60px 20px 40px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: clamp(28px, 5vw, 52px);
+            margin-bottom: 8px;
+            font-weight: 700;
+        }
+
+        .header p {
+            font-size: clamp(14px, 3vw, 18px);
+            opacity: 0.95;
         }
 
         .container {
-            max-width: 1000px;
+            max-width: 1200px;
             margin: 0 auto;
-            background: white;
-            border-radius: 10px;
-            padding: 40px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            padding: 0 20px;
         }
 
-        header {
-            text-align: center;
-            margin-bottom: 40px;
-            padding-bottom: 30px;
-            border-bottom: 2px solid #f0f0f0;
-        }
-
-        h1 {
-            font-size: 48px;
-            color: #333;
-            margin-bottom: 10px;
-        }
-
-        .subtitle {
-            color: #666;
-            font-size: 18px;
+        main {
+            padding: 60px 20px;
         }
 
         .tools-section {
-            margin: 40px 0;
+            margin-bottom: 80px;
         }
 
         .section-title {
-            font-size: 28px;
-            color: #333;
-            margin-bottom: 20px;
+            font-size: clamp(24px, 4vw, 32px);
+            margin-bottom: 30px;
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
+            color: #333;
+            font-weight: 600;
+        }
+
+        .section-icon {
+            font-size: 32px;
         }
 
         .tools-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
             margin-top: 20px;
         }
 
-        .tool-card {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            border-radius: 10px;
-            padding: 30px;
-            color: white;
+        .card {
+            background: white;
+            border-radius: 12px;
+            padding: 28px;
             text-decoration: none;
-            transition: transform 0.3s, box-shadow 0.3s;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            color: inherit;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+            border: 1px solid #e8ecf1;
+            display: flex;
+            flex-direction: column;
         }
 
-        .tool-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.12);
+            border-color: #667eea;
         }
 
-        .tool-icon {
+        .card-icon {
             font-size: 48px;
-            margin-bottom: 15px;
+            margin-bottom: 16px;
+            line-height: 1;
         }
 
-        .tool-title {
-            font-size: 24px;
+        .card-title {
+            font-size: 20px;
             font-weight: 600;
-            margin-bottom: 10px;
+            margin-bottom: 8px;
         }
 
-        .tool-description {
+        .card-description {
             font-size: 14px;
-            opacity: 0.9;
+            color: #666;
             line-height: 1.6;
+            flex-grow: 1;
+            margin-bottom: 16px;
+        }
+
+        .card-arrow {
+            color: #667eea;
+            font-weight: 600;
+            margin-top: 12px;
+            display: inline-block;
+        }
+
+        .card.minecraft {
+            background: linear-gradient(135deg, #2d5016 0%, #1f3a0b 100%);
+            color: white;
+            border: none;
+        }
+
+        .card.minecraft .card-description {
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .card.minecraft .card-arrow {
+            color: #90ee90;
+        }
+
+        .card.minecraft:hover {
+            border-color: transparent;
+            box-shadow: 0 12px 24px rgba(45, 80, 22, 0.3);
+        }
+
+        .card.coming-soon {
+            background: #f9fafb;
+            color: #999;
+            cursor: default;
+        }
+
+        .card.coming-soon:hover {
+            transform: none;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+        }
+
+        .badge {
+            display: inline-block;
+            background: rgba(102, 126, 234, 0.1);
+            color: #667eea;
+            padding: 4px 10px;
+            border-radius: 16px;
+            font-size: 11px;
+            font-weight: 600;
+            margin-top: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .card.minecraft .badge {
+            background: rgba(144, 238, 144, 0.2);
+            color: #90ee90;
         }
 
         footer {
+            background: white;
+            border-top: 1px solid #e8ecf1;
+            padding: 40px 20px;
             text-align: center;
-            margin-top: 60px;
-            padding-top: 30px;
-            border-top: 2px solid #f0f0f0;
             color: #666;
+            margin-top: 60px;
         }
 
         .social-links {
             display: flex;
             justify-content: center;
             gap: 20px;
-            margin: 20px 0;
+            margin-bottom: 20px;
         }
 
         .social-links a {
             color: #667eea;
             font-size: 24px;
             text-decoration: none;
-            transition: color 0.3s;
+            transition: transform 0.3s, color 0.3s;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            background: #f5f7fa;
         }
 
         .social-links a:hover {
             color: #764ba2;
+            transform: translateY(-3px);
+            background: #e8ecf1;
         }
 
-        .coming-soon {
-            background: #f5f5f5;
-            color: #666;
-            cursor: default;
+        footer p {
+            font-size: 13px;
         }
 
-        .coming-soon:hover {
-            transform: none;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        @media (max-width: 768px) {
+            .header {
+                padding: 40px 20px 30px;
+            }
+
+            main {
+                padding: 40px 20px;
+            }
+
+            .tools-section {
+                margin-bottom: 60px;
+            }
+
+            .tools-grid {
+                gap: 16px;
+            }
+
+            .card {
+                padding: 20px;
+            }
         }
 
-        .badge {
-            display: inline-block;
-            background: rgba(255,255,255,0.3);
-            padding: 4px 12px;
-            border-radius: 20px;
-            font-size: 12px;
-            font-weight: 600;
-            margin-top: 10px;
+        @media (max-width: 480px) {
+            .section-title {
+                font-size: 20px;
+                gap: 8px;
+            }
+
+            .section-icon {
+                font-size: 24px;
+            }
+
+            .tools-grid {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <header>
+    <header class="header">
+        <div class="container">
             <h1>Sam Jakeman</h1>
-            <p class="subtitle">Tools & Resources TEST</p>
-        </header>
+            <p>Useful tools & resources for builders and creators</p>
+        </div>
+    </header>
 
-        <section class="tools-section (TEST)">
-            <h2 class="section-title">🎮 Minecraft Tools</h2>
-            <div class="tools-grid">
-                <a href="apps/minecraft/circle-builder/minecraft-circle-creator.html" class="tool-card">
-                    <div class="tool-icon">⭕</div>
-                    <div class="tool-title">Circle Builder</div>
-                    <div class="tool-description">
-                        Generate perfect circles and ellipses for your Minecraft builds. 
-                        Features adjustable dimensions, grid overlay, and block count guides.
-                    </div>
-                    <div class="badge">AVAILABLE NOW</div>
-                </a>
+    <main>
+        <div class="container">
+            <section class="tools-section">
+                <h2 class="section-title">
+                    <span class="section-icon">🌱</span>
+                    Tools & Resources
+                </h2>
+                <div class="tools-grid">
+                    <a href="minecraft-tools.html" class="card minecraft">
+                        <div class="card-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="48" height="48" style="display: block;">
+                                <!-- Top grass -->
+                                <rect x="10" y="10" width="80" height="40" fill="#5fb75c"/>
+                                <!-- Left side dirt -->
+                                <rect x="10" y="50" width="40" height="40" fill="#8a6636"/>
+                                <!-- Right side dirt -->
+                                <rect x="50" y="50" width="40" height="40" fill="#6b5430"/>
+                                <!-- Grass texture -->
+                                <rect x="25" y="28" width="6" height="6" fill="#4a9a4f"/>
+                                <rect x="70" y="32" width="6" height="6" fill="#4a9a4f"/>
+                                <rect x="50" y="23" width="6" height="6" fill="#4a9a4f"/>
+                            </svg>
+                        </div>
+                        <div class="card-title">Minecraft Tools</div>
+                        <div class="card-description">
+                            A collection of useful tools for Minecraft builders including circle and grid generators.
+                        </div>
+                        <span class="card-arrow">→ Explore Tools</span>
+                    </a>
 
-                <a href="apps/minecraft/grid-builder/minecraft-grid-builder.html" class="tool-card">
-                    <div class="tool-icon">📐</div>
-                    <div class="tool-title">Grid Builder</div>
-                    <div class="tool-description">
-                        Create custom grids and patterns for your Minecraft projects. 
-                        Perfect for planning builds and designs.
+                    <div class="card coming-soon">
+                        <div class="card-icon">🚀</div>
+                        <div class="card-title">Coming Soon</div>
+                        <div class="card-description">
+                            More tools and resources are in development. Check back soon for exciting updates!
+                        </div>
+                        <span class="badge">In Development</span>
                     </div>
-                    <div class="badge">AVAILABLE NOW</div>
-                </a>
-            </div>
-        </section>
-
-        <section class="tools-section">
-            <h2 class="section-title">🔧 More Tools</h2>
-            <div class="tools-grid">
-                <div class="tool-card coming-soon">
-                    <div class="tool-icon">🚀</div>
-                    <div class="tool-title">Coming Soon</div>
-                    <div class="tool-description">
-                        More useful tools and resources are in development. 
-                        Check back soon for updates!
-                    </div>
-                    <div class="badge">IN DEVELOPMENT</div>
+                    <a href="instagram-reel-downloader.html" class="card coming-soon">
+                        <div class="card-icon">📷</div>
+                        <div class="card-title">Instagram Reel Downloader</div>
+                        <div class="card-description">
+                            Download Instagram Reels quickly and easily. Paste a reel link and get your video. (Coming soon)
+                        </div>
+                        <span class="badge">New Tool</span>
+                    </a>
                 </div>
-            </div>
-        </section>
+            </section>
+        </div>
+    </main>
 
-        <footer>
-            <div class="social-links">
-                <a href="https://instagram.com/sam_jakeman" target="_blank" title="Instagram">📷</a>
-                <a href="https://www.linkedin.com/in/sam-jakeman-6a5387113/" target="_blank" title="LinkedIn">💼</a>
-            </div>
-            <p>&copy; 2026 Sam Jakeman - All Rights Reserved</p>
-        </footer>
-    </div>
+    <footer>
+        <div class="social-links">
+            <a href="https://instagram.com/sam_jakeman" target="_blank" title="Instagram">📷</a>
+            <a href="https://www.linkedin.com/in/sam-jakeman-6a5387113/" target="_blank" title="LinkedIn">💼</a>
+        </div>
+        <p>&copy; 2026 Sam Jakeman - All Rights Reserved</p>
+    </footer>
 </body>
 </html>
 
