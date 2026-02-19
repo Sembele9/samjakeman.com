@@ -7,30 +7,26 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-let browser = null;
-
 async function getBrowser() {
-  if (!browser) {
-    try {
-      console.log('Getting Chromium executable path...');
-      const executablePath = await chromium.executablePath();
-      console.log('Chromium path:', executablePath);
-      
-      console.log('Launching Puppeteer with args:', chromium.args);
-      browser = await puppeteer.launch({
-        args: chromium.args,
-        defaultViewport: chromium.defaultViewport,
-        executablePath: executablePath,
-        headless: chromium.headless,
-      });
-      console.log('Browser launched successfully');
-    } catch (error) {
-      console.error('Failed to launch browser:', error.message);
-      console.error('Error stack:', error.stack);
-      throw error;
-    }
+  try {
+    console.log('Getting Chromium executable path...');
+    const executablePath = await chromium.executablePath();
+    console.log('Chromium path:', executablePath);
+    
+    console.log('Launching Puppeteer with args:', chromium.args);
+    const browser = await puppeteer.launch({
+      args: chromium.args,
+      defaultViewport: chromium.defaultViewport,
+      executablePath: executablePath,
+      headless: chromium.headless,
+    });
+    console.log('Browser launched successfully');
+    return browser;
+  } catch (error) {
+    console.error('Failed to launch browser:', error.message);
+    console.error('Error stack:', error.stack);
+    throw error;
   }
-  return browser;
 }
 
 app.post('/api/download', async (req, res) => {
@@ -45,16 +41,17 @@ app.post('/api/download', async (req, res) => {
     return res.status(400).json({ error: 'Please provide a valid Instagram URL' });
   }
 
+  let browser;
   let page;
   try {
     console.log('Launching browser...');
-    const browser = await getBrowser();
+    browser = await getBrowser();
     page = await browser.newPage();
     
     await page.setUserAgent('Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36');
     
     console.log('Navigating to:', url);
-    await page.goto(url, { waitUntil: 'networkidle2', timeout: 30000 });
+    await page.goto(url, { waitUntil: 'networkidle2', timeout: 45000 });
     
     console.log('Extracting video URL...');
     const videoUrl = await page.evaluate(() => {
@@ -77,6 +74,7 @@ app.post('/api/download', async (req, res) => {
     });
     
     await page.close();
+    await browser.close();
     
     if (videoUrl) {
       console.log('Video URL found');
@@ -90,6 +88,7 @@ app.post('/api/download', async (req, res) => {
     console.error('Error:', err.message);
     console.error('Stack:', err.stack);
     if (page) await page.close().catch(() => {});
+    if (browser) await browser.close().catch(() => {});
     return res.status(500).json({ error: `Failed to fetch video: ${err.message}` });
   }
 });

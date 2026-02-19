@@ -87,6 +87,37 @@
             color: white;
             backdrop-filter: blur(10px);
         }
+        .spinner {
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-top: 3px solid #e1306c;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 16px;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        .progress-container {
+            width: 100%;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            overflow: hidden;
+            margin: 12px 0;
+        }
+        .progress-bar {
+            height: 8px;
+            background: linear-gradient(90deg, #e1306c, #405de6);
+            border-radius: 10px;
+            transition: width 0.3s ease;
+        }
+        .progress-text {
+            font-size: 13px;
+            opacity: 0.9;
+            margin-top: 8px;
+        }
         .back-btn {
             display: inline-block;
             margin-bottom: 24px;
@@ -138,7 +169,38 @@
                 return;
             }
             
-            resultDiv.innerHTML = '<em>Fetching video... This may take 10-15 seconds...</em>';
+            // Show loading spinner with progress
+            resultDiv.innerHTML = `
+                <div class="spinner"></div>
+                <div class="progress-container">
+                    <div class="progress-bar" id="progressBar" style="width: 0%"></div>
+                </div>
+                <div class="progress-text" id="progressText">Launching browser...</div>
+            `;
+            
+            // Simulate progress updates
+            let progress = 0;
+            const progressBar = document.getElementById('progressBar');
+            const progressText = document.getElementById('progressText');
+            const progressSteps = [
+                { percent: 20, text: 'Launching browser...' },
+                { percent: 40, text: 'Connecting to Instagram...' },
+                { percent: 60, text: 'Loading page...' },
+                { percent: 80, text: 'Extracting video...' },
+                { percent: 95, text: 'Almost done...' }
+            ];
+            
+            let stepIndex = 0;
+            const progressInterval = setInterval(() => {
+                if (stepIndex < progressSteps.length) {
+                    const step = progressSteps[stepIndex];
+                    progressBar.style.width = step.percent + '%';
+                    progressText.textContent = step.text;
+                    stepIndex++;
+                } else {
+                    clearInterval(progressInterval);
+                }
+            }, 3000);
             
             try {
                 const apiUrl = window.location.hostname === 'localhost' 
@@ -152,6 +214,8 @@
                     },
                     body: JSON.stringify({ url })
                 });
+                
+                clearInterval(progressInterval);
                 
                 // Check if response is JSON
                 const contentType = response.headers.get('content-type');
@@ -182,6 +246,7 @@
                     throw new Error('Video URL not found');
                 }
             } catch (error) {
+                clearInterval(progressInterval);
                 resultDiv.innerHTML = `<em style="color: #ff6b6b;">Error: ${error.message}</em>`;
             }
         }
