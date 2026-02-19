@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Instagram Reel Downloader - Sam Jakeman</title>
+    <title>Video Game Tools - Sam Jakeman</title>
     <style>
         * {
             margin: 0;
@@ -42,7 +42,7 @@
             transition: transform 0.1s ease-out;
         }
 
-        header, .container {
+        header, main, footer {
             position: relative;
             z-index: 1;
         }
@@ -53,96 +53,165 @@
             padding: 60px 20px 40px;
             text-align: center;
         }
+
         .header h1 {
-            font-size: clamp(28px, 5vw, 48px);
+            font-size: clamp(28px, 5vw, 52px);
             margin-bottom: 8px;
             font-weight: 700;
         }
-        .header p {
-            font-size: clamp(14px, 3vw, 16px);
-            opacity: 0.95;
+
+        .back-link {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            font-size: 16px;
+            display: inline-block;
+            margin-bottom: 20px;
+            transition: color 0.3s;
         }
+
+        .back-link:hover {
+            color: white;
+        }
+
         .container {
-            max-width: 600px;
+            max-width: 1200px;
             margin: 0 auto;
-            padding: 40px 20px;
+            padding: 0 20px;
+        }
+
+        main {
+            padding: 60px 20px;
+        }
+
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+            margin-top: 20px;
+        }
+
+        .card {
             background: rgba(255, 255, 255, 0.5);
             border-radius: 12px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            padding: 28px;
+            text-decoration: none;
+            color: inherit;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+            border: 1px solid rgba(232, 236, 241, 0.3);
+            display: flex;
+            flex-direction: column;
             backdrop-filter: blur(10px);
         }
-        .tool-section {
-            margin-bottom: 40px;
+
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.12);
+            border-color: #667eea;
         }
-        label {
+
+        .card-icon {
+            font-size: 48px;
+            margin-bottom: 16px;
+            line-height: 1;
+        }
+
+        .card-title {
+            font-size: 20px;
             font-weight: 600;
-            color: white;
+            margin-bottom: 8px;
         }
-        input[type="text"] {
-            width: 100%;
-            padding: 12px;
-            border: 2px solid #ddd;
-            border-radius: 6px;
-            font-size: 16px;
+
+        .card-description {
+            font-size: 14px;
+            color: #666;
+            line-height: 1.6;
+            flex-grow: 1;
             margin-bottom: 16px;
         }
-        button {
-            background: #e1306c;
-            color: white;
-            padding: 12px 24px;
-            border: none;
-            border-radius: 6px;
+
+        .card-arrow {
+            color: #667eea;
             font-weight: 600;
-            cursor: pointer;
-            font-size: 16px;
-            transition: background 0.3s;
+            margin-top: 12px;
+            display: inline-block;
         }
-        button:hover {
-            background: #405de6;
-        }
-        .result {
-            margin-top: 24px;
-            padding: 16px;
-            background: rgba(249, 250, 251, 0.5);
-            border-radius: 8px;
+
+        .card.minecraft {
+            background: rgba(45, 80, 22, 0.5);
             color: white;
+            border: 1px solid rgba(144, 238, 144, 0.3);
             backdrop-filter: blur(10px);
         }
-        .back-btn {
-            display: inline-block;
-            margin-bottom: 24px;
-            background: #405de6;
-            color: white;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 6px;
-            font-weight: 600;
-            cursor: pointer;
-            font-size: 15px;
-            text-decoration: none;
+
+        .card.minecraft .card-description {
+            color: rgba(255, 255, 255, 0.9);
         }
-        .back-btn:hover {
-            background: #e1306c;
+
+        .card.minecraft .card-arrow {
+            color: #90ee90;
+        }
+
+        .card.minecraft:hover {
+            border-color: transparent;
+            box-shadow: 0 12px 24px rgba(45, 80, 22, 0.3);
+        }
+
+        footer {
+            background: transparent;
+            backdrop-filter: blur(10px);
+            border-top: 1px solid rgba(232, 236, 241, 0.3);
+            padding: 40px 20px;
+            text-align: center;
+            color: #ccc;
+            margin-top: 60px;
+        }
+
+        footer p {
+            font-size: 13px;
         }
     </style>
 </head>
 <body>
     <div class="starry-background" id="starryBg"></div>
     <header class="header">
-        <h1>Instagram Reel Downloader</h1>
-        <p>Download Instagram Reels quickly and easily</p>
+        <div class="container">
+            <a href="index.html" class="back-link">← Back to Home</a>
+            <h1>🎮 Video Game Tools</h1>
+        </div>
     </header>
-    <div class="container">
-        <a href="index.html" class="back-btn">← Back to Home</a>
-        <section class="tool-section">
-            <label for="reelUrl">Instagram Reel URL:</label>
-            <input type="text" id="reelUrl" placeholder="Paste Instagram Reel link here...">
-            <button onclick="alert('This is a placeholder. Actual download functionality is not implemented.')">Download Reel</button>
-            <div class="result" id="result">
-                <em>Note: This is a placeholder tool. Actual download functionality is not implemented.</em>
+
+    <main>
+        <div class="container">
+            <div class="tools-grid">
+                <a href="minecraft-tools.html" class="card minecraft">
+                    <div class="card-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="48" height="48" style="display: block;">
+                            <!-- Top grass -->
+                            <rect x="10" y="10" width="80" height="40" fill="#5fb75c"/>
+                            <!-- Left side dirt -->
+                            <rect x="10" y="50" width="40" height="40" fill="#8a6636"/>
+                            <!-- Right side dirt -->
+                            <rect x="50" y="50" width="40" height="40" fill="#6b5430"/>
+                            <!-- Grass texture -->
+                            <rect x="25" y="28" width="6" height="6" fill="#4a9a4f"/>
+                            <rect x="70" y="32" width="6" height="6" fill="#4a9a4f"/>
+                            <rect x="50" y="23" width="6" height="6" fill="#4a9a4f"/>
+                        </svg>
+                    </div>
+                    <div class="card-title">Minecraft Tools</div>
+                    <div class="card-description">
+                        A collection of useful tools for Minecraft builders including circle and grid generators.
+                    </div>
+                    <span class="card-arrow">→ Explore Tools</span>
+                </a>
             </div>
-        </section>
-    </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Sam Jakeman - All Rights Reserved</p>
+    </footer>
 
     <script>
         // Create starry background

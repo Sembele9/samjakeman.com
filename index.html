@@ -13,13 +13,42 @@
 
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
-            background: #f5f7fa;
+            background: #000000;
             color: #333;
             line-height: 1.6;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        .starry-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+            background: radial-gradient(ellipse at 20% 30%, rgba(88, 28, 135, 0.3) 0%, transparent 50%),
+                        radial-gradient(ellipse at 80% 70%, rgba(29, 78, 216, 0.25) 0%, transparent 50%),
+                        radial-gradient(ellipse at 50% 50%, rgba(139, 92, 246, 0.2) 0%, transparent 60%),
+                        #000000;
+        }
+
+        .star {
+            position: absolute;
+            background: white;
+            border-radius: 50%;
+            box-shadow: 0 0 3px rgba(255, 255, 255, 0.8);
+            transition: transform 0.1s ease-out;
+        }
+
+        header, main, footer {
+            position: relative;
+            z-index: 1;
         }
 
         .header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: transparent;
             color: white;
             padding: 60px 20px 40px;
             text-align: center;
@@ -56,7 +85,7 @@
             display: flex;
             align-items: center;
             gap: 12px;
-            color: #333;
+            color: white;
             font-weight: 600;
         }
 
@@ -72,16 +101,17 @@
         }
 
         .card {
-            background: white;
+            background: rgba(255, 255, 255, 0.5);
             border-radius: 12px;
             padding: 28px;
             text-decoration: none;
-            color: inherit;
+            color: white;
             transition: all 0.3s ease;
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-            border: 1px solid #e8ecf1;
+            border: 1px solid rgba(232, 236, 241, 0.3);
             display: flex;
             flex-direction: column;
+            backdrop-filter: blur(10px);
         }
 
         .card:hover {
@@ -104,7 +134,7 @@
 
         .card-description {
             font-size: 14px;
-            color: #666;
+            color: rgba(255, 255, 255, 0.9);
             line-height: 1.6;
             flex-grow: 1;
             margin-bottom: 16px;
@@ -117,60 +147,13 @@
             display: inline-block;
         }
 
-        .card.minecraft {
-            background: linear-gradient(135deg, #2d5016 0%, #1f3a0b 100%);
-            color: white;
-            border: none;
-        }
-
-        .card.minecraft .card-description {
-            color: rgba(255, 255, 255, 0.9);
-        }
-
-        .card.minecraft .card-arrow {
-            color: #90ee90;
-        }
-
-        .card.minecraft:hover {
-            border-color: transparent;
-            box-shadow: 0 12px 24px rgba(45, 80, 22, 0.3);
-        }
-
-        .card.coming-soon {
-            background: #f9fafb;
-            color: #999;
-            cursor: default;
-        }
-
-        .card.coming-soon:hover {
-            transform: none;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-        }
-
-        .badge {
-            display: inline-block;
-            background: rgba(102, 126, 234, 0.1);
-            color: #667eea;
-            padding: 4px 10px;
-            border-radius: 16px;
-            font-size: 11px;
-            font-weight: 600;
-            margin-top: 12px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        .card.minecraft .badge {
-            background: rgba(144, 238, 144, 0.2);
-            color: #90ee90;
-        }
-
         footer {
-            background: white;
-            border-top: 1px solid #e8ecf1;
+            background: transparent;
+            backdrop-filter: blur(10px);
+            border-top: 1px solid rgba(232, 236, 241, 0.3);
             padding: 40px 20px;
             text-align: center;
-            color: #666;
+            color: #ccc;
             margin-top: 60px;
         }
 
@@ -227,6 +210,46 @@
             }
         }
 
+        .tabs {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 32px;
+            border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+            flex-wrap: wrap;
+        }
+
+        .tab {
+            background: rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.7);
+            border: none;
+            padding: 14px 28px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-radius: 8px 8px 0 0;
+            backdrop-filter: blur(10px);
+        }
+
+        .tab:hover {
+            background: rgba(255, 255, 255, 0.15);
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .tab.active {
+            background: rgba(102, 126, 234, 0.3);
+            color: white;
+            border-bottom: 3px solid #667eea;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
         @media (max-width: 480px) {
             .section-title {
                 font-size: 20px;
@@ -240,13 +263,22 @@
             .tools-grid {
                 grid-template-columns: 1fr;
             }
+
+            .tabs {
+                gap: 8px;
+            }
+
+            .tab {
+                padding: 12px 20px;
+                font-size: 14px;
+            }
         }
     </style>
 </head>
 <body>
+    <div class="starry-background" id="starryBg"></div>
     <header class="header">
         <div class="container">
-            <h1>Sam Jakeman</h1>
             <p>Useful tools & resources for builders and creators</p>
         </div>
     </header>
@@ -254,48 +286,32 @@
     <main>
         <div class="container">
             <section class="tools-section">
-                <h2 class="section-title">
-                    <span class="section-icon">🌱</span>
-                    Tools & Resources
-                </h2>
                 <div class="tools-grid">
-                    <a href="minecraft-tools.html" class="card minecraft">
-                        <div class="card-icon">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="48" height="48" style="display: block;">
-                                <!-- Top grass -->
-                                <rect x="10" y="10" width="80" height="40" fill="#5fb75c"/>
-                                <!-- Left side dirt -->
-                                <rect x="10" y="50" width="40" height="40" fill="#8a6636"/>
-                                <!-- Right side dirt -->
-                                <rect x="50" y="50" width="40" height="40" fill="#6b5430"/>
-                                <!-- Grass texture -->
-                                <rect x="25" y="28" width="6" height="6" fill="#4a9a4f"/>
-                                <rect x="70" y="32" width="6" height="6" fill="#4a9a4f"/>
-                                <rect x="50" y="23" width="6" height="6" fill="#4a9a4f"/>
-                            </svg>
-                        </div>
-                        <div class="card-title">Minecraft Tools</div>
+                    <a href="video-game-tools.html" class="card">
+                        <div class="card-icon">🎮</div>
+                        <div class="card-title">Video Game Tools</div>
                         <div class="card-description">
-                            A collection of useful tools for Minecraft builders including circle and grid generators.
+                            Tools and utilities for video games including Minecraft circle and grid generators.
                         </div>
-                        <span class="card-arrow">→ Explore Tools</span>
+                        <span class="card-arrow">→ View Tools</span>
                     </a>
 
-                    <div class="card coming-soon">
-                        <div class="card-icon">🚀</div>
-                        <div class="card-title">Coming Soon</div>
+                    <a href="applications.html" class="card">
+                        <div class="card-icon">💻</div>
+                        <div class="card-title">Applications</div>
                         <div class="card-description">
-                            More tools and resources are in development. Check back soon for exciting updates!
+                            Useful applications and utilities. More coming soon!
                         </div>
-                        <span class="badge">In Development</span>
-                    </div>
-                    <a href="instagram-reel-downloader.html" class="card coming-soon">
-                        <div class="card-icon">📷</div>
-                        <div class="card-title">Instagram Reel Downloader</div>
+                        <span class="card-arrow">→ View Applications</span>
+                    </a>
+
+                    <a href="social-media-tools.html" class="card">
+                        <div class="card-icon">📱</div>
+                        <div class="card-title">Social Media Tools</div>
                         <div class="card-description">
-                            Download Instagram Reels quickly and easily. Paste a reel link and get your video. (Coming soon)
+                            Download videos and media from Instagram, Facebook, X, and YouTube.
                         </div>
-                        <span class="badge">New Tool</span>
+                        <span class="card-arrow">→ View Tools</span>
                     </a>
                 </div>
             </section>
@@ -309,6 +325,72 @@
         </div>
         <p>&copy; 2026 Sam Jakeman - All Rights Reserved</p>
     </footer>
+
+    <script>
+        // Create starry background
+        const starryBg = document.getElementById('starryBg');
+        const numStars = 200;
+        const stars = [];
+
+        // Create stars
+        for (let i = 0; i < numStars; i++) {
+            const star = document.createElement('div');
+            star.className = 'star';
+            
+            // Random size (1-3px)
+            const size = Math.random() * 2 + 1;
+            star.style.width = size + 'px';
+            star.style.height = size + 'px';
+            
+            // Random position
+            star.style.left = Math.random() * 100 + '%';
+            star.style.top = Math.random() * 100 + '%';
+            
+            // Random opacity for twinkling effect
+            star.style.opacity = Math.random() * 0.5 + 0.5;
+            
+            // Store initial position and depth
+            star.dataset.x = parseFloat(star.style.left);
+            star.dataset.y = parseFloat(star.style.top);
+            star.dataset.depth = Math.random() * 0.5 + 0.5; // Depth for parallax
+            
+            starryBg.appendChild(star);
+            stars.push(star);
+        }
+
+        // Mouse move parallax effect
+        let mouseX = 0;
+        let mouseY = 0;
+
+        document.addEventListener('mousemove', (e) => {
+            mouseX = (e.clientX / window.innerWidth - 0.5) * 2; // -1 to 1
+            mouseY = (e.clientY / window.innerHeight - 0.5) * 2; // -1 to 1
+        });
+
+        // Animate stars
+        function animateStars() {
+            stars.forEach(star => {
+                const depth = parseFloat(star.dataset.depth);
+                const moveX = mouseX * 20 * depth;
+                const moveY = mouseY * 20 * depth;
+                
+                star.style.transform = `translate(${moveX}px, ${moveY}px)`;
+            });
+            
+            requestAnimationFrame(animateStars);
+        }
+
+        animateStars();
+
+        // Twinkling effect
+        setInterval(() => {
+            stars.forEach(star => {
+                if (Math.random() > 0.97) {
+                    star.style.opacity = Math.random() * 0.5 + 0.5;
+                }
+            });
+        }, 100);
+    </script>
 </body>
 </html>
 
