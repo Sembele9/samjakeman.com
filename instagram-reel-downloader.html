@@ -141,7 +141,11 @@
             resultDiv.innerHTML = '<em>Fetching video... This may take 10-15 seconds...</em>';
             
             try {
-                const response = await fetch('/api/download', {
+                const apiUrl = window.location.hostname === 'localhost' 
+                    ? 'http://localhost:10000/api/download'
+                    : 'https://api.samjakeman.com/api/download';
+                
+                const response = await fetch(apiUrl, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
