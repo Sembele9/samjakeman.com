@@ -11,12 +11,24 @@ let browser = null;
 
 async function getBrowser() {
   if (!browser) {
-    browser = await puppeteer.launch({
-      args: chromium.args,
-      defaultViewport: chromium.defaultViewport,
-      executablePath: await chromium.executablePath(),
-      headless: chromium.headless,
-    });
+    try {
+      console.log('Getting Chromium executable path...');
+      const executablePath = await chromium.executablePath();
+      console.log('Chromium path:', executablePath);
+      
+      console.log('Launching Puppeteer with args:', chromium.args);
+      browser = await puppeteer.launch({
+        args: chromium.args,
+        defaultViewport: chromium.defaultViewport,
+        executablePath: executablePath,
+        headless: chromium.headless,
+      });
+      console.log('Browser launched successfully');
+    } catch (error) {
+      console.error('Failed to launch browser:', error.message);
+      console.error('Error stack:', error.stack);
+      throw error;
+    }
   }
   return browser;
 }
@@ -46,13 +58,11 @@ app.post('/api/download', async (req, res) => {
     
     console.log('Extracting video URL...');
     const videoUrl = await page.evaluate(() => {
-      // Try multiple selectors
       const video = document.querySelector('video');
       if (video && video.src) {
         return video.src;
       }
       
-      // Look for video in meta tags
       const metaVideo = document.querySelector('meta[property="og:video"]');
       if (metaVideo) {
         return metaVideo.getAttribute('content');
@@ -78,8 +88,9 @@ app.post('/api/download', async (req, res) => {
     
   } catch (err) {
     console.error('Error:', err.message);
-    if (page) await page.close();
-    res.status(500).json({ error: 'Failed to fetch video' });
+    console.error('Stack:', err.stack);
+    if (page) await page.close().catch(() => {});
+    return res.status(500).json({ error: `Failed to fetch video: ${err.message}` });
   }
 });
 
