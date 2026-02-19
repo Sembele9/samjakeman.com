@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sam Jakeman - Tools & Resources</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -28,18 +31,91 @@
             height: 100%;
             z-index: 0;
             pointer-events: none;
-            background: radial-gradient(ellipse at 20% 30%, rgba(88, 28, 135, 0.3) 0%, transparent 50%),
-                        radial-gradient(ellipse at 80% 70%, rgba(29, 78, 216, 0.25) 0%, transparent 50%),
-                        radial-gradient(ellipse at 50% 50%, rgba(139, 92, 246, 0.2) 0%, transparent 60%),
-                        #000000;
+            background: 
+                radial-gradient(ellipse at 15% 20%, rgba(88, 28, 135, 0.4) 0%, transparent 40%),
+                radial-gradient(ellipse at 85% 75%, rgba(29, 78, 216, 0.35) 0%, transparent 45%),
+                radial-gradient(ellipse at 50% 50%, rgba(139, 92, 246, 0.25) 0%, transparent 50%),
+                radial-gradient(ellipse at 70% 30%, rgba(255, 107, 107, 0.15) 0%, transparent 35%),
+                radial-gradient(ellipse at 30% 80%, rgba(78, 205, 196, 0.12) 0%, transparent 40%),
+                #000000;
         }
 
         .star {
             position: absolute;
+            border-radius: 50%;
+            transition: transform 0.15s ease-out;
+            pointer-events: none;
+        }
+
+        .star.tiny {
+            box-shadow: 0 0 1px rgba(255, 255, 255, 0.9);
+        }
+
+        .star.small {
+            box-shadow: 0 0 2px rgba(255, 255, 255, 0.95);
+        }
+
+        .star.medium {
+            box-shadow: 0 0 4px 1px rgba(255, 255, 255, 0.9);
+        }
+
+        .star.large {
+            box-shadow: 0 0 6px 2px rgba(255, 255, 255, 1),
+                        0 0 10px 3px rgba(200, 220, 255, 0.5);
+        }
+
+        .star.blue {
+            background: rgba(200, 220, 255, 1);
+        }
+
+        .star.white {
+            background: rgba(255, 255, 255, 1);
+        }
+
+        .star.yellow {
+            background: rgba(255, 245, 200, 1);
+        }
+
+        .star.red {
+            background: rgba(255, 200, 200, 1);
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 1; }
+        }
+
+        @keyframes shooting-star {
+            0% {
+                transform: translateX(0) translateY(0);
+                opacity: 1;
+            }
+            100% {
+                transform: translateX(-300px) translateY(300px);
+                opacity: 0;
+            }
+        }
+
+        .shooting-star {
+            position: absolute;
+            width: 2px;
+            height: 2px;
             background: white;
             border-radius: 50%;
-            box-shadow: 0 0 3px rgba(255, 255, 255, 0.8);
-            transition: transform 0.1s ease-out;
+            box-shadow: 0 0 10px 2px rgba(255, 255, 255, 0.8),
+                        0 0 20px 4px rgba(255, 255, 255, 0.4);
+            animation: shooting-star 1.5s ease-out forwards;
+        }
+
+        .shooting-star::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100px;
+            height: 1px;
+            background: linear-gradient(90deg, white, transparent);
+            transform: translateX(-100px);
         }
 
         header, main, footer {
@@ -50,7 +126,7 @@
         .header {
             background: transparent;
             color: white;
-            padding: 60px 20px 40px;
+            padding: 30px 20px 20px;
             text-align: center;
         }
 
@@ -63,6 +139,31 @@
         .header p {
             font-size: clamp(14px, 3vw, 18px);
             opacity: 0.95;
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 500;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: white;
+            text-shadow: 0 0 10px rgba(102, 126, 234, 0.8),
+                         0 0 20px rgba(102, 126, 234, 0.6),
+                         0 0 30px rgba(118, 75, 162, 0.4),
+                         0 2px 4px rgba(0, 0, 0, 0.5);
+            animation: glow-text 3s ease-in-out infinite;
+        }
+
+        @keyframes glow-text {
+            0%, 100% {
+                text-shadow: 0 0 10px rgba(102, 126, 234, 0.8),
+                             0 0 20px rgba(102, 126, 234, 0.6),
+                             0 0 30px rgba(118, 75, 162, 0.4),
+                             0 2px 4px rgba(0, 0, 0, 0.5);
+            }
+            50% {
+                text-shadow: 0 0 15px rgba(102, 126, 234, 1),
+                             0 0 30px rgba(102, 126, 234, 0.8),
+                             0 0 45px rgba(118, 75, 162, 0.6),
+                             0 2px 4px rgba(0, 0, 0, 0.5);
+            }
         }
 
         .container {
@@ -72,11 +173,11 @@
         }
 
         main {
-            padding: 60px 20px;
+            padding: 20px 20px;
         }
 
         .tools-section {
-            margin-bottom: 80px;
+            margin-bottom: 20px;
         }
 
         .section-title {
@@ -94,67 +195,512 @@
         }
 
         .tools-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 24px;
+            position: relative;
+            min-height: 480px;
             margin-top: 20px;
         }
 
-        .card {
-            background: rgba(255, 255, 255, 0.5);
-            border-radius: 12px;
-            padding: 28px;
+        .planet-container {
+            position: absolute;
+            cursor: pointer;
+            transition: none;
+            will-change: transform;
+            transform: translate3d(0, 0, 0);
+            backface-visibility: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .planet-container:hover:not(.zooming) {
+            transform: scale(1.15) translateY(-20px) translateZ(0);
+            transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+            z-index: 10 !important;
+        }
+
+        .planet-container.zooming {
+            z-index: 1000 !important;
+            transition: transform 2.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        body.zoom-active {
+            overflow: hidden;
+        }
+
+        body.zoom-active .starry-background {
+            filter: blur(10px);
+            transition: filter 2s ease;
+        }
+
+        .planet-container:not(.zooming) {
+            opacity: 1;
+            transition: opacity 0.6s ease;
+        }
+
+        body.zoom-active .planet-container:not(.zooming) {
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.4s ease;
+        }
+
+        body.zoom-active .header,
+        body.zoom-active .footer-toggle {
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.8s ease;
+        }
+
+        .planet-surface {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 999;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 1.2s ease-in-out;
+            padding: 60px 40px;
+            overflow-y: auto;
+            backface-visibility: hidden;
+        }
+
+        .planet-surface.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .planet-surface.blue-surface {
+            background: radial-gradient(circle at 50% 50%, #2196f3, #1565c0 60%, #0d47a1);
+        }
+
+        .planet-surface.red-surface {
+            background: radial-gradient(circle at 50% 50%, #ff6347, #d84315 60%, #bf360c);
+        }
+
+        .planet-surface.purple-surface {
+            background: radial-gradient(circle at 50% 50%, #ab47bc, #7b1fa2 60%, #4a148c);
+        }
+
+        .back-button {
+            position: fixed;
+            top: 30px;
+            left: 30px;
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            color: white;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            padding: 12px 24px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            z-index: 1001;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-family: 'Orbitron', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .back-button:hover {
+            background: rgba(255, 255, 255, 0.25);
+            transform: translateX(-5px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+        }
+
+        .surface-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            color: white;
+        }
+
+        .surface-content h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(32px, 6vw, 56px);
+            margin-bottom: 20px;
+            text-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+        }
+
+        .surface-content p {
+            font-size: clamp(16px, 3vw, 20px);
+            margin-bottom: 40px;
+            opacity: 0.9;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+        }
+
+        .surface-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
+            margin-top: 40px;
+        }
+
+        .surface-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-radius: 16px;
+            padding: 30px;
+            transition: all 0.3s ease;
             text-decoration: none;
             color: white;
-            transition: all 0.3s ease;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-            border: 1px solid rgba(232, 236, 241, 0.3);
-            display: flex;
-            flex-direction: column;
-            backdrop-filter: blur(10px);
+            display: block;
         }
 
-        .card:hover {
+        .surface-card:hover {
+            background: rgba(255, 255, 255, 0.15);
             transform: translateY(-8px);
-            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.12);
-            border-color: #667eea;
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
+            border-color: rgba(255, 255, 255, 0.4);
         }
 
-        .card-icon {
-            font-size: 48px;
-            margin-bottom: 16px;
-            line-height: 1;
+        .surface-card h3 {
+            font-size: 24px;
+            margin-bottom: 12px;
+            font-family: 'Orbitron', sans-serif;
         }
 
-        .card-title {
-            font-size: 20px;
-            font-weight: 600;
+        .surface-card p {
+            font-size: 15px;
+            opacity: 0.85;
+            margin-bottom: 0;
+        }
+
+        .planet-container:hover:not(.zooming) {
+            transform: scale(1.15) translateY(-20px);
+            transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+            z-index: 10 !important;
+        }
+
+        .planet-container.zooming {
+            z-index: 1000 !important;
+            transition: transform 2.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .planet {
+            position: relative;
+            border-radius: 50%;
+            animation: float 6s ease-in-out infinite, rotate 120s linear infinite;
+            transform-style: preserve-3d;
+            backface-visibility: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        body.zoom-active .planet {
+            animation: none;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotateZ(0deg); }
+            50% { transform: translateY(-20px) rotateZ(5deg); }
+        }
+
+        @keyframes rotate {
+            from { background-position: 0% 0%; }
+            to { background-position: 200% 0%; }
+        }
+
+        @keyframes glow {
+            0%, 100% { opacity: 0.6; }
+            50% { opacity: 1; }
+        }
+
+        @keyframes orbit-ring {
+            from { transform: rotateX(75deg) rotateZ(0deg); }
+            to { transform: rotateX(75deg) rotateZ(360deg); }
+        }
+
+        /* Blue Planet (Video Games) - Earth-like */
+        .planet.blue {
+            width: 220px;
+            height: 220px;
+            background: 
+                radial-gradient(circle at 35% 35%, rgba(255, 255, 255, 0.3), transparent 20%),
+                radial-gradient(circle at 20% 50%, rgba(34, 139, 34, 0.4) 5%, transparent 15%),
+                radial-gradient(circle at 60% 40%, rgba(34, 139, 34, 0.5) 3%, transparent 12%),
+                radial-gradient(circle at 45% 65%, rgba(34, 139, 34, 0.45) 4%, transparent 14%),
+                radial-gradient(circle at 70% 70%, rgba(34, 139, 34, 0.4) 6%, transparent 16%),
+                radial-gradient(circle at 30% 30%, #1e88e5, #1565c0 30%, #0d47a1 60%, #001064);
+            box-shadow: 
+                inset -30px -30px 60px rgba(0, 0, 20, 0.7),
+                inset 20px 20px 40px rgba(100, 180, 255, 0.2),
+                inset 0 0 80px rgba(30, 136, 229, 0.3),
+                0 0 40px rgba(100, 180, 255, 0.4),
+                0 0 80px rgba(30, 136, 229, 0.3),
+                0 0 120px rgba(30, 136, 229, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .planet.blue::before {
+            content: '';
+            position: absolute;
+            top: -5%;
+            left: -5%;
+            right: -5%;
+            bottom: -5%;
+            border-radius: 50%;
+            background: radial-gradient(circle at 35% 30%, rgba(135, 206, 250, 0.5), rgba(135, 206, 250, 0.2) 40%, transparent 70%);
+            animation: glow 4s ease-in-out infinite;
+        }
+
+        .planet.blue::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: 50%;
+            background: 
+                radial-gradient(ellipse at 30% 20%, rgba(255, 255, 255, 0.4) 0%, transparent 30%),
+                radial-gradient(ellipse at 60% 50%, rgba(255, 255, 255, 0.2) 0%, transparent 25%),
+                radial-gradient(ellipse at 80% 70%, rgba(255, 255, 255, 0.25) 0%, transparent 28%);
+            animation: cloud-drift 80s linear infinite;
+        }
+
+        @keyframes cloud-drift {
+            from { transform: translateX(0) rotate(0deg); }
+            to { transform: translateX(-10px) rotate(360deg); }
+        }
+
+        /* Red/Orange Planet (Applications) - Mars-like */
+        .planet.red {
+            width: 240px;
+            height: 240px;
+            background: 
+                radial-gradient(circle at 35% 25%, rgba(255, 255, 255, 0.15) 0%, transparent 8%),
+                radial-gradient(circle at 25% 35%, rgba(139, 69, 19, 0.6) 3%, transparent 12%),
+                radial-gradient(circle at 55% 45%, rgba(160, 82, 45, 0.5) 4%, transparent 15%),
+                radial-gradient(circle at 70% 30%, rgba(178, 34, 34, 0.4) 5%, transparent 18%),
+                radial-gradient(circle at 40% 60%, rgba(139, 69, 19, 0.5) 6%, transparent 16%),
+                radial-gradient(circle at 80% 65%, rgba(205, 92, 92, 0.4) 4%, transparent 14%),
+                radial-gradient(circle at 30% 75%, rgba(160, 82, 45, 0.6) 5%, transparent 17%),
+                radial-gradient(circle at 35% 20%, #ff6347, #e64a19 35%, #bf360c 65%, #4e1e10);
+            box-shadow: 
+                inset -35px -35px 70px rgba(20, 0, 0, 0.8),
+                inset 25px 25px 50px rgba(255, 140, 100, 0.15),
+                inset 0 0 100px rgba(212, 84, 42, 0.2),
+                0 0 50px rgba(255, 100, 60, 0.5),
+                0 0 90px rgba(255, 87, 34, 0.35),
+                0 0 130px rgba(212, 84, 42, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .planet.red::before {
+            content: '';
+            position: absolute;
+            top: -5%;
+            left: -5%;
+            right: -5%;
+            bottom: -5%;
+            border-radius: 50%;
+            background: radial-gradient(circle at 35% 25%, rgba(255, 140, 100, 0.5), rgba(255, 100, 60, 0.25) 45%, transparent 70%);
+            animation: glow 3.5s ease-in-out infinite;
+        }
+
+        .planet.red::after {
+            content: '';
+            position: absolute;
+            top: 5%;
+            left: 5%;
+            right: 5%;
+            bottom: 5%;
+            border-radius: 50%;
+            background: 
+                radial-gradient(ellipse at 50% 40%, rgba(205, 133, 63, 0.3) 0%, transparent 35%),
+                radial-gradient(ellipse at 30% 60%, rgba(188, 143, 143, 0.25) 0%, transparent 30%);
+            animation: dust-storm 60s linear infinite;
+        }
+
+        @keyframes dust-storm {
+            0%, 100% { opacity: 0.6; transform: rotate(0deg) scale(1); }
+            50% { opacity: 0.9; transform: rotate(180deg) scale(1.1); }
+        }
+
+        /* Purple Planet (Social Media) - Gas Giant */
+        .planet.purple {
+            width: 210px;
+            height: 210px;
+            background: 
+                linear-gradient(0deg, transparent 15%, rgba(186, 85, 211, 0.4) 18%, transparent 21%),
+                linear-gradient(0deg, transparent 28%, rgba(147, 112, 219, 0.35) 31%, transparent 34%),
+                linear-gradient(0deg, transparent 42%, rgba(138, 43, 226, 0.4) 45%, transparent 49%),
+                linear-gradient(0deg, transparent 56%, rgba(123, 104, 238, 0.3) 59%, transparent 63%),
+                linear-gradient(0deg, transparent 72%, rgba(153, 50, 204, 0.35) 75%, transparent 79%),
+                radial-gradient(ellipse at 65% 45%, rgba(255, 255, 255, 0.25) 0%, transparent 8%),
+                radial-gradient(circle at 40% 30%, #b968c7, #8e44ad 40%, #6c3483 70%, #2c1a3a);
+            box-shadow: 
+                inset -28px -28px 60px rgba(15, 0, 30, 0.8),
+                inset 18px 18px 45px rgba(200, 150, 255, 0.15),
+                inset 0 0 90px rgba(138, 43, 226, 0.2),
+                0 0 45px rgba(186, 85, 211, 0.6),
+                0 0 85px rgba(147, 112, 219, 0.4),
+                0 0 125px rgba(138, 43, 226, 0.25);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .planet.purple::before {
+            content: '';
+            position: absolute;
+            top: -5%;
+            left: -5%;
+            right: -5%;
+            bottom: -5%;
+            border-radius: 50%;
+            background: radial-gradient(circle at 40% 30%, rgba(200, 150, 255, 0.45), rgba(186, 85, 211, 0.25) 50%, transparent 75%);
+            animation: glow 4.5s ease-in-out infinite;
+        }
+
+        /* Add ring to purple planet */
+        .planet.purple::after {
+            content: '';
+            position: absolute;
+            width: 145%;
+            height: 145%;
+            top: -22.5%;
+            left: -22.5%;
+            border-radius: 50%;
+            border: 4px solid transparent;
+            border-top-color: rgba(200, 150, 255, 0.4);
+            border-bottom-color: rgba(200, 150, 255, 0.15);
+            transform: rotateX(75deg);
+            box-shadow: 
+                0 0 20px rgba(200, 150, 255, 0.5),
+                inset 0 0 20px rgba(200, 150, 255, 0.3);
+            animation: orbit-ring 25s linear infinite;
+        }
+
+        @keyframes orbit-ring {
+            from { transform: rotateX(75deg) rotateZ(0deg); }
+            to { transform: rotateX(75deg) rotateZ(360deg); }
+        }
+
+        .planet-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            color: white;
+            z-index: 2;
+            pointer-events: none;
+            width: 80%;
+            transition: opacity 0.4s ease-out;
+            backface-visibility: hidden;
+        }
+
+        .planet-container.zooming .planet-content {
+            opacity: 0;
+            transition: opacity 0.2s ease-out;
+        }
+
+        .planet-icon {
+            font-size: 44px;
             margin-bottom: 8px;
+            filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.5));
+            animation: pulse 2s ease-in-out infinite;
         }
 
-        .card-description {
-            font-size: 14px;
-            color: rgba(255, 255, 255, 0.9);
-            line-height: 1.6;
-            flex-grow: 1;
-            margin-bottom: 16px;
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        .planet-title {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 6px;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.8);
+        }
+
+        .planet-description {
+            font-size: 11px;
+            line-height: 1.4;
+            opacity: 0.95;
+            text-shadow: 0 1px 5px rgba(0, 0, 0, 0.8);
+        }
+
+        /* Surface details - craters and features */
+        .planet-detail {
+            position: absolute;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(0, 0, 0, 0.3), transparent);
         }
 
         .card-arrow {
-            color: #667eea;
-            font-weight: 600;
-            margin-top: 12px;
-            display: inline-block;
+            display: none;
         }
 
         footer {
-            background: transparent;
-            backdrop-filter: blur(10px);
-            border-top: 1px solid rgba(232, 236, 241, 0.3);
-            padding: 40px 20px;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(20, 20, 40, 0.95);
+            backdrop-filter: blur(20px);
+            border-top: 1px solid rgba(232, 236, 241, 0.2);
+            padding: 30px 20px;
             text-align: center;
             color: #ccc;
-            margin-top: 60px;
+            transform: translateY(100%);
+            transition: transform 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            z-index: 100;
+            box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.5);
+        }
+
+        footer.expanded {
+            transform: translateY(0);
+        }
+
+        .footer-toggle {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: rgba(102, 126, 234, 0.9);
+            backdrop-filter: blur(10px);
+            color: white;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            padding: 12px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            z-index: 101;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .footer-toggle:hover {
+            background: rgba(102, 126, 234, 1);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+        }
+
+        .footer-toggle.active {
+            background: rgba(230, 74, 25, 0.9);
+            box-shadow: 0 4px 15px rgba(230, 74, 25, 0.4);
+        }
+
+        .footer-toggle.active:hover {
+            background: rgba(230, 74, 25, 1);
+            box-shadow: 0 6px 20px rgba(230, 74, 25, 0.6);
+        }
+
+        .toggle-icon {
+            transition: transform 0.3s ease;
+            font-size: 16px;
+        }
+
+        .footer-toggle.active .toggle-icon {
+            transform: rotate(180deg);
         }
 
         .social-links {
@@ -198,11 +744,35 @@
             }
 
             .tools-section {
-                margin-bottom: 60px;
+                margin-bottom: 20px;
             }
 
             .tools-grid {
-                gap: 16px;
+                min-height: 1200px;
+            }
+
+            .planet.blue,
+            .planet.red,
+            .planet.purple {
+                width: 240px !important;
+                height: 240px !important;
+            }
+
+            .planet-title {
+                font-size: 18px;
+            }
+
+            .planet-description {
+                font-size: 11px;
+            }
+
+            .planet-icon {
+                font-size: 44px;
+            }
+
+            .footer-toggle {
+                padding: 10px 16px;
+                font-size: 13px;
             }
 
             .card {
@@ -286,39 +856,122 @@
     <main>
         <div class="container">
             <section class="tools-section">
-                <div class="tools-grid">
-                    <a href="video-game-tools.html" class="card">
-                        <div class="card-icon">🎮</div>
-                        <div class="card-title">Video Game Tools</div>
-                        <div class="card-description">
-                            Tools and utilities for video games including Minecraft circle and grid generators.
+                <div class="tools-grid" id="planetSystem">
+                    <!-- Planets will be positioned by JavaScript -->
+                    <a href="#" class="planet-container" data-planet="blue" data-page="video-game-tools">
+                        <div class="planet blue">
+                            <div class="planet-content">
+                                <div class="planet-icon">🎮</div>
+                                <div class="planet-title">Video Game Tools</div>
+                                <div class="planet-description">
+                                    Minecraft builders toolkit
+                                </div>
+                            </div>
                         </div>
-                        <span class="card-arrow">→ View Tools</span>
                     </a>
 
-                    <a href="applications.html" class="card">
-                        <div class="card-icon">💻</div>
-                        <div class="card-title">Applications</div>
-                        <div class="card-description">
-                            Useful applications and utilities. More coming soon!
+                    <a href="#" class="planet-container" data-planet="red" data-page="applications">
+                        <div class="planet red">
+                            <div class="planet-content">
+                                <div class="planet-icon">💻</div>
+                                <div class="planet-title">Applications</div>
+                                <div class="planet-description">
+                                    Useful apps & utilities
+                                </div>
+                            </div>
                         </div>
-                        <span class="card-arrow">→ View Applications</span>
                     </a>
 
-                    <a href="social-media-tools.html" class="card">
-                        <div class="card-icon">📱</div>
-                        <div class="card-title">Social Media Tools</div>
-                        <div class="card-description">
-                            Download videos and media from Instagram, Facebook, X, and YouTube.
+                    <a href="#" class="planet-container" data-planet="purple" data-page="social-media-tools">
+                        <div class="planet purple">
+                            <div class="planet-content">
+                                <div class="planet-icon">📱</div>
+                                <div class="planet-title">Social Media Tools</div>
+                                <div class="planet-description">
+                                    Download Instagram, X, YouTube
+                                </div>
+                            </div>
                         </div>
-                        <span class="card-arrow">→ View Tools</span>
                     </a>
                 </div>
             </section>
         </div>
     </main>
 
-    <footer>
+    <!-- Planet Surface Overlays -->
+    <div class="planet-surface blue-surface" id="blueSurface">
+        <button class="back-button" onclick="zoomOut()">
+            <span>←</span>
+            <span>Back to Space</span>
+        </button>
+        <div class="surface-content">
+            <h1>🎮 Video Game Tools</h1>
+            <p>Your toolkit for gaming creativity and building</p>
+            <div class="surface-grid">
+                <a href="minecraft-tools.html" class="surface-card">
+                    <h3>Minecraft Tools</h3>
+                    <p>Circle generators, grid builders, and planning tools for Minecraft construction projects.</p>
+                </a>
+                <div class="surface-card" style="opacity: 0.5; cursor: not-allowed;">
+                    <h3>More Tools Coming Soon</h3>
+                    <p>We're working on additional gaming utilities. Stay tuned!</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="planet-surface red-surface" id="redSurface">
+        <button class="back-button" onclick="zoomOut()">
+            <span>←</span>
+            <span>Back to Space</span>
+        </button>
+        <div class="surface-content">
+            <h1>💻 Applications</h1>
+            <p>Powerful tools and utilities for everyday tasks</p>
+            <div class="surface-grid">
+                <div class="surface-card" style="opacity: 0.5; cursor: not-allowed;">
+                    <h3>Coming Soon</h3>
+                    <p>Exciting applications are in development. Check back soon for updates!</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="planet-surface purple-surface" id="purpleSurface">
+        <button class="back-button" onclick="zoomOut()">
+            <span>←</span>
+            <span>Back to Space</span>
+        </button>
+        <div class="surface-content">
+            <h1>📱 Social Media Tools</h1>
+            <p>Download and manage your social media content</p>
+            <div class="surface-grid">
+                <a href="instagram-reel-downloader.html" class="surface-card">
+                    <h3>📷 Instagram Reel Downloader</h3>
+                    <p>Download Instagram Reels quickly and easily. Just paste a link and get your video.</p>
+                </a>
+                <div class="surface-card" style="opacity: 0.5; cursor: not-allowed;">
+                    <h3>🎬 YouTube Downloader</h3>
+                    <p>Coming soon - Download YouTube videos and audio</p>
+                </div>
+                <div class="surface-card" style="opacity: 0.5; cursor: not-allowed;">
+                    <h3>✖️ X (Twitter) Downloader</h3>
+                    <p>Coming soon - Download videos from X/Twitter</p>
+                </div>
+                <div class="surface-card" style="opacity: 0.5; cursor: not-allowed;">
+                    <h3>📘 Facebook Downloader</h3>
+                    <p>Coming soon - Download Facebook videos</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <button class="footer-toggle" id="footerToggle">
+        <span>Links</span>
+        <span class="toggle-icon">↑</span>
+    </button>
+
+    <footer id="footer">
         <div class="social-links">
             <a href="https://instagram.com/sam_jakeman" target="_blank" title="Instagram">📷</a>
             <a href="https://www.linkedin.com/in/sam-jakeman-6a5387113/" target="_blank" title="LinkedIn">💼</a>
@@ -327,52 +980,268 @@
     </footer>
 
     <script>
+        // Planet zoom functionality
+        let currentPlanet = null;
+        let isAnimating = false;
+        let originalPosition = null;
+
+        function zoomIntoPlanet(planetContainer) {
+            if (isAnimating) return;
+            isAnimating = true;
+            
+            const planetType = planetContainer.dataset.planet;
+            const surfaceId = planetType + 'Surface';
+            const surface = document.getElementById(surfaceId);
+            
+            currentPlanet = planetContainer;
+            
+            // Store original position
+            const rect = planetContainer.getBoundingClientRect();
+            const centerX = rect.left + rect.width / 2;
+            const centerY = rect.top + rect.height / 2;
+            const viewportCenterX = window.innerWidth / 2;
+            const viewportCenterY = window.innerHeight / 2;
+            
+            // Calculate translation needed to center the planet
+            const translateX = viewportCenterX - centerX;
+            const translateY = viewportCenterY - centerY;
+            
+            // Store for return journey
+            originalPosition = { translateX: -translateX, translateY: -translateY };
+            
+            // Add classes
+            document.body.classList.add('zoom-active');
+            planetContainer.classList.add('zooming');
+            
+            // Force reflow for smooth start
+            planetContainer.offsetHeight;
+            
+            // Apply transform using translate3d for GPU acceleration
+            requestAnimationFrame(() => {
+                planetContainer.style.transform = `translate3d(${translateX}px, ${translateY}px, 0) scale(25)`;
+            });
+            
+            // Show surface after zoom completes
+            setTimeout(() => {
+                surface.classList.add('active');
+                isAnimating = false;
+            }, 2500);
+        }
+
+        function zoomOut() {
+            if (!currentPlanet || isAnimating) return;
+            isAnimating = true;
+            
+            const planetType = currentPlanet.dataset.planet;
+            const surfaceId = planetType + 'Surface';
+            const surface = document.getElementById(surfaceId);
+            
+            // Hide surface immediately
+            surface.classList.remove('active');
+            
+            // Show other planets and UI elements immediately
+            document.body.classList.remove('zoom-active');
+            
+            // Wait a bit then start zoom out
+            setTimeout(() => {
+                // Reset transform to return to original position using translate3d
+                currentPlanet.style.transform = 'translate3d(0, 0, 0) scale(1)';
+                
+                // After animation completes, clean up
+                setTimeout(() => {
+                    currentPlanet.classList.remove('zooming');
+                    currentPlanet.style.transform = '';
+                    currentPlanet = null;
+                    originalPosition = null;
+                    isAnimating = false;
+                }, 2500);
+            }, 150);
+        }
+
+        // Add click handlers to planets
+        document.addEventListener('DOMContentLoaded', () => {
+            const planetContainers = document.querySelectorAll('.planet-container');
+            
+            planetContainers.forEach(container => {
+                container.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    zoomIntoPlanet(container);
+                });
+            });
+        });
+
+        // Footer toggle functionality
+        const footerToggle = document.getElementById('footerToggle');
+        const footer = document.getElementById('footer');
+
+        footerToggle.addEventListener('click', () => {
+            footer.classList.toggle('expanded');
+            footerToggle.classList.toggle('active');
+        });
+
+        // Close footer when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!footer.contains(e.target) && !footerToggle.contains(e.target)) {
+                footer.classList.remove('expanded');
+                footerToggle.classList.remove('active');
+            }
+        });
+
+        // Position planets randomly but aesthetically
+        function positionPlanets() {
+            const planetContainers = document.querySelectorAll('.planet-container');
+            const isMobile = window.innerWidth <= 768;
+            
+            if (isMobile) {
+                // Stack vertically on mobile
+                planetContainers.forEach((container, index) => {
+                    container.style.position = 'relative';
+                    container.style.margin = '180px auto';
+                    container.style.display = 'block';
+                    container.style.width = 'fit-content';
+                });
+            } else {
+                // Random positioning on desktop
+                const positions = [
+                    { top: '5%', left: '8%', zIndex: 3 },
+                    { top: '50%', left: '35%', zIndex: 2 },
+                    { top: '8%', right: '10%', zIndex: 1 }
+                ];
+                
+                planetContainers.forEach((container, index) => {
+                    const pos = positions[index];
+                    container.style.top = pos.top;
+                    container.style.left = pos.left || 'auto';
+                    container.style.right = pos.right || 'auto';
+                    container.style.zIndex = pos.zIndex;
+                });
+            }
+        }
+
+        // Add surface details (craters) to planets
+        function addPlanetDetails() {
+            const planets = document.querySelectorAll('.planet');
+            
+            planets.forEach(planet => {
+                const numCraters = 3 + Math.floor(Math.random() * 4);
+                
+                for (let i = 0; i < numCraters; i++) {
+                    const crater = document.createElement('div');
+                    crater.className = 'planet-detail';
+                    
+                    const size = 10 + Math.random() * 30;
+                    crater.style.width = size + 'px';
+                    crater.style.height = size + 'px';
+                    crater.style.top = (20 + Math.random() * 60) + '%';
+                    crater.style.left = (20 + Math.random() * 60) + '%';
+                    
+                    planet.appendChild(crater);
+                }
+            });
+        }
+
+        // Initialize planet positioning and details
+        positionPlanets();
+        addPlanetDetails();
+        
+        // Reposition on resize
+        let resizeTimer;
+        window.addEventListener('resize', () => {
+            clearTimeout(resizeTimer);
+            resizeTimer = setTimeout(positionPlanets, 250);
+        });
+
         // Create starry background
         const starryBg = document.getElementById('starryBg');
-        const numStars = 200;
+        const numStars = 800; // Increased for more realistic look
         const stars = [];
+        const starColors = ['blue', 'white', 'yellow', 'red'];
+        const starSizes = [
+            { class: 'tiny', size: [0.5, 1], weight: 0.6 },
+            { class: 'small', size: [1, 1.5], weight: 0.25 },
+            { class: 'medium', size: [1.5, 2.5], weight: 0.12 },
+            { class: 'large', size: [2.5, 4], weight: 0.03 }
+        ];
 
-        // Create stars
+        // Function to get weighted random star size
+        function getRandomStarSize() {
+            const rand = Math.random();
+            let cumulative = 0;
+            for (const sizeType of starSizes) {
+                cumulative += sizeType.weight;
+                if (rand <= cumulative) {
+                    return sizeType;
+                }
+            }
+            return starSizes[0];
+        }
+
+        // Create stars with varying sizes and colors
         for (let i = 0; i < numStars; i++) {
             const star = document.createElement('div');
-            star.className = 'star';
+            const sizeType = getRandomStarSize();
+            const size = sizeType.size[0] + Math.random() * (sizeType.size[1] - sizeType.size[0]);
+            const colorClass = starColors[Math.floor(Math.random() * starColors.length)];
             
-            // Random size (1-3px)
-            const size = Math.random() * 2 + 1;
+            star.className = `star ${sizeType.class} ${colorClass}`;
             star.style.width = size + 'px';
             star.style.height = size + 'px';
             
-            // Random position
-            star.style.left = Math.random() * 100 + '%';
-            star.style.top = Math.random() * 100 + '%';
+            // Random position with some clustering
+            const cluster = Math.random() > 0.7;
+            if (cluster) {
+                // Create star clusters
+                const clusterX = Math.random() * 100;
+                const clusterY = Math.random() * 100;
+                star.style.left = (clusterX + (Math.random() - 0.5) * 10) + '%';
+                star.style.top = (clusterY + (Math.random() - 0.5) * 10) + '%';
+            } else {
+                star.style.left = Math.random() * 100 + '%';
+                star.style.top = Math.random() * 100 + '%';
+            }
             
-            // Random opacity for twinkling effect
-            star.style.opacity = Math.random() * 0.5 + 0.5;
+            // Random opacity for depth
+            const baseOpacity = 0.4 + Math.random() * 0.6;
+            star.style.opacity = baseOpacity;
+            star.dataset.baseOpacity = baseOpacity;
             
-            // Store initial position and depth
+            // Store initial position and depth for parallax
             star.dataset.x = parseFloat(star.style.left);
             star.dataset.y = parseFloat(star.style.top);
-            star.dataset.depth = Math.random() * 0.5 + 0.5; // Depth for parallax
+            star.dataset.depth = Math.random() * 0.8 + 0.2;
+            
+            // Random twinkle animation for some stars
+            if (Math.random() > 0.7) {
+                const duration = 2 + Math.random() * 4;
+                const delay = Math.random() * 5;
+                star.style.animation = `twinkle ${duration}s ease-in-out ${delay}s infinite`;
+            }
             
             starryBg.appendChild(star);
             stars.push(star);
         }
 
-        // Mouse move parallax effect
+        // Mouse move parallax effect with smoother movement
         let mouseX = 0;
         let mouseY = 0;
+        let targetMouseX = 0;
+        let targetMouseY = 0;
 
         document.addEventListener('mousemove', (e) => {
-            mouseX = (e.clientX / window.innerWidth - 0.5) * 2; // -1 to 1
-            mouseY = (e.clientY / window.innerHeight - 0.5) * 2; // -1 to 1
+            targetMouseX = (e.clientX / window.innerWidth - 0.5) * 2;
+            targetMouseY = (e.clientY / window.innerHeight - 0.5) * 2;
         });
 
-        // Animate stars
+        // Animate stars with smooth parallax
         function animateStars() {
+            // Smooth mouse movement
+            mouseX += (targetMouseX - mouseX) * 0.05;
+            mouseY += (targetMouseY - mouseY) * 0.05;
+            
             stars.forEach(star => {
                 const depth = parseFloat(star.dataset.depth);
-                const moveX = mouseX * 20 * depth;
-                const moveY = mouseY * 20 * depth;
+                const moveX = mouseX * 30 * depth;
+                const moveY = mouseY * 30 * depth;
                 
                 star.style.transform = `translate(${moveX}px, ${moveY}px)`;
             });
@@ -382,14 +1251,36 @@
 
         animateStars();
 
-        // Twinkling effect
+        // Enhanced twinkling effect
         setInterval(() => {
             stars.forEach(star => {
-                if (Math.random() > 0.97) {
-                    star.style.opacity = Math.random() * 0.5 + 0.5;
+                if (Math.random() > 0.98) {
+                    const baseOpacity = parseFloat(star.dataset.baseOpacity);
+                    star.style.opacity = baseOpacity * (0.3 + Math.random() * 0.7);
                 }
             });
-        }, 100);
+        }, 50);
+
+        // Create shooting stars periodically
+        function createShootingStar() {
+            const shootingStar = document.createElement('div');
+            shootingStar.className = 'shooting-star';
+            shootingStar.style.left = (50 + Math.random() * 50) + '%';
+            shootingStar.style.top = (Math.random() * 30) + '%';
+            
+            starryBg.appendChild(shootingStar);
+            
+            setTimeout(() => {
+                shootingStar.remove();
+            }, 1500);
+        }
+
+        // Spawn shooting stars randomly
+        setInterval(() => {
+            if (Math.random() > 0.7) {
+                createShootingStar();
+            }
+        }, 3000);
     </script>
 </body>
 </html>
