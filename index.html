@@ -23,21 +23,21 @@
             position: relative;
         }
 
+        /* NASA/ESA Milky Way background */
         .starry-background {
             position: fixed;
             top: 0;
             left: 0;
-            width: 100%;
-            height: 100%;
+            width: 100vw;
+            height: 100vh;
             z-index: 0;
             pointer-events: none;
-            background: 
-                radial-gradient(ellipse at 15% 20%, rgba(88, 28, 135, 0.4) 0%, transparent 40%),
-                radial-gradient(ellipse at 85% 75%, rgba(29, 78, 216, 0.35) 0%, transparent 45%),
-                radial-gradient(ellipse at 50% 50%, rgba(139, 92, 246, 0.25) 0%, transparent 50%),
-                radial-gradient(ellipse at 70% 30%, rgba(255, 107, 107, 0.15) 0%, transparent 35%),
-                radial-gradient(ellipse at 30% 80%, rgba(78, 205, 196, 0.12) 0%, transparent 40%),
-                #000000;
+            background: #000;
+            background-image: url('https://cdn.spacetelescope.org/archives/images/wallpaper2/heic1509a.jpg'); /* ESA/Hubble Milky Way */
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            filter: brightness(0.9) saturate(1.2);
         }
 
         .star {
@@ -91,7 +91,7 @@
                 opacity: 1;
             }
             100% {
-                transform: translateX(-300px) translateY(300px);
+                transform: translateX(-150vw) translateY(150vh);
                 opacity: 0;
             }
         }
@@ -114,8 +114,9 @@
             left: 0;
             width: 100px;
             height: 1px;
-            background: linear-gradient(90deg, white, transparent);
+            background: radial-gradient(ellipse at left, rgba(255, 255, 255, 0.6), transparent 70%);
             transform: translateX(-100px);
+            filter: blur(1px);
         }
 
         header, main, footer {
@@ -208,11 +209,13 @@
             transform: translate3d(0, 0, 0);
             backface-visibility: hidden;
             -webkit-font-smoothing: antialiased;
+            z-index: 2;
         }
 
         .planet-container:hover:not(.zooming) {
-            transform: scale(1.15) translateY(-20px) translateZ(0);
-            transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+            transform: scale(1) translateY(0px) translateZ(0);
+            transition: filter 0.6s ease;
+            filter: brightness(1.15);
             z-index: 10 !important;
         }
 
@@ -369,8 +372,9 @@
         }
 
         .planet-container:hover:not(.zooming) {
-            transform: scale(1.15) translateY(-20px);
-            transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+            transform: scale(1) translateY(0px);
+            transition: filter 0.6s ease;
+            filter: brightness(1.1) drop-shadow(0 0 30px rgba(200, 150, 255, 0.6));
             z-index: 10 !important;
         }
 
@@ -382,10 +386,12 @@
         .planet {
             position: relative;
             border-radius: 50%;
-            animation: float 6s ease-in-out infinite, rotate 120s linear infinite;
+            animation: none;
             transform-style: preserve-3d;
             backface-visibility: hidden;
             -webkit-font-smoothing: antialiased;
+            box-shadow: none;
+            background-color: transparent;
         }
 
         body.zoom-active .planet {
@@ -413,172 +419,40 @@
         }
 
         /* Blue Planet (Video Games) - Earth-like */
+        /* NASA Blue Marble Earth */
         .planet.blue {
             width: 220px;
             height: 220px;
-            background: 
-                radial-gradient(circle at 35% 35%, rgba(255, 255, 255, 0.3), transparent 20%),
-                radial-gradient(circle at 20% 50%, rgba(34, 139, 34, 0.4) 5%, transparent 15%),
-                radial-gradient(circle at 60% 40%, rgba(34, 139, 34, 0.5) 3%, transparent 12%),
-                radial-gradient(circle at 45% 65%, rgba(34, 139, 34, 0.45) 4%, transparent 14%),
-                radial-gradient(circle at 70% 70%, rgba(34, 139, 34, 0.4) 6%, transparent 16%),
-                radial-gradient(circle at 30% 30%, #1e88e5, #1565c0 30%, #0d47a1 60%, #001064);
-            box-shadow: 
-                inset -30px -30px 60px rgba(0, 0, 20, 0.7),
-                inset 20px 20px 40px rgba(100, 180, 255, 0.2),
-                inset 0 0 80px rgba(30, 136, 229, 0.3),
-                0 0 40px rgba(100, 180, 255, 0.4),
-                0 0 80px rgba(30, 136, 229, 0.3),
-                0 0 120px rgba(30, 136, 229, 0.2);
+            background: url('https://upload.wikimedia.org/wikipedia/commons/9/97/The_Earth_seen_from_Apollo_17.jpg') center center/cover no-repeat;
+            border-radius: 50%;
             position: relative;
-            overflow: hidden;
         }
 
-        .planet.blue::before {
-            content: '';
-            position: absolute;
-            top: -5%;
-            left: -5%;
-            right: -5%;
-            bottom: -5%;
-            border-radius: 50%;
-            background: radial-gradient(circle at 35% 30%, rgba(135, 206, 250, 0.5), rgba(135, 206, 250, 0.2) 40%, transparent 70%);
-            animation: glow 4s ease-in-out infinite;
-        }
 
-        .planet.blue::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            border-radius: 50%;
-            background: 
-                radial-gradient(ellipse at 30% 20%, rgba(255, 255, 255, 0.4) 0%, transparent 30%),
-                radial-gradient(ellipse at 60% 50%, rgba(255, 255, 255, 0.2) 0%, transparent 25%),
-                radial-gradient(ellipse at 80% 70%, rgba(255, 255, 255, 0.25) 0%, transparent 28%);
-            animation: cloud-drift 80s linear infinite;
-        }
-
-        @keyframes cloud-drift {
-            from { transform: translateX(0) rotate(0deg); }
-            to { transform: translateX(-10px) rotate(360deg); }
-        }
 
         /* Red/Orange Planet (Applications) - Mars-like */
+        /* NASA Jupiter */
         .planet.red {
             width: 240px;
             height: 240px;
-            background: 
-                radial-gradient(circle at 35% 25%, rgba(255, 255, 255, 0.15) 0%, transparent 8%),
-                radial-gradient(circle at 25% 35%, rgba(139, 69, 19, 0.6) 3%, transparent 12%),
-                radial-gradient(circle at 55% 45%, rgba(160, 82, 45, 0.5) 4%, transparent 15%),
-                radial-gradient(circle at 70% 30%, rgba(178, 34, 34, 0.4) 5%, transparent 18%),
-                radial-gradient(circle at 40% 60%, rgba(139, 69, 19, 0.5) 6%, transparent 16%),
-                radial-gradient(circle at 80% 65%, rgba(205, 92, 92, 0.4) 4%, transparent 14%),
-                radial-gradient(circle at 30% 75%, rgba(160, 82, 45, 0.6) 5%, transparent 17%),
-                radial-gradient(circle at 35% 20%, #ff6347, #e64a19 35%, #bf360c 65%, #4e1e10);
-            box-shadow: 
-                inset -35px -35px 70px rgba(20, 0, 0, 0.8),
-                inset 25px 25px 50px rgba(255, 140, 100, 0.15),
-                inset 0 0 100px rgba(212, 84, 42, 0.2),
-                0 0 50px rgba(255, 100, 60, 0.5),
-                0 0 90px rgba(255, 87, 34, 0.35),
-                0 0 130px rgba(212, 84, 42, 0.2);
+            background: url('https://upload.wikimedia.org/wikipedia/commons/e/e2/Jupiter.jpg') center center/cover no-repeat;
+            border-radius: 50%;
             position: relative;
-            overflow: hidden;
         }
 
-        .planet.red::before {
-            content: '';
-            position: absolute;
-            top: -5%;
-            left: -5%;
-            right: -5%;
-            bottom: -5%;
-            border-radius: 50%;
-            background: radial-gradient(circle at 35% 25%, rgba(255, 140, 100, 0.5), rgba(255, 100, 60, 0.25) 45%, transparent 70%);
-            animation: glow 3.5s ease-in-out infinite;
-        }
 
-        .planet.red::after {
-            content: '';
-            position: absolute;
-            top: 5%;
-            left: 5%;
-            right: 5%;
-            bottom: 5%;
-            border-radius: 50%;
-            background: 
-                radial-gradient(ellipse at 50% 40%, rgba(205, 133, 63, 0.3) 0%, transparent 35%),
-                radial-gradient(ellipse at 30% 60%, rgba(188, 143, 143, 0.25) 0%, transparent 30%);
-            animation: dust-storm 60s linear infinite;
-        }
-
-        @keyframes dust-storm {
-            0%, 100% { opacity: 0.6; transform: rotate(0deg) scale(1); }
-            50% { opacity: 0.9; transform: rotate(180deg) scale(1.1); }
-        }
 
         /* Purple Planet (Social Media) - Gas Giant */
+        /* NASA Neptune */
         .planet.purple {
             width: 210px;
             height: 210px;
-            background: 
-                linear-gradient(0deg, transparent 15%, rgba(186, 85, 211, 0.4) 18%, transparent 21%),
-                linear-gradient(0deg, transparent 28%, rgba(147, 112, 219, 0.35) 31%, transparent 34%),
-                linear-gradient(0deg, transparent 42%, rgba(138, 43, 226, 0.4) 45%, transparent 49%),
-                linear-gradient(0deg, transparent 56%, rgba(123, 104, 238, 0.3) 59%, transparent 63%),
-                linear-gradient(0deg, transparent 72%, rgba(153, 50, 204, 0.35) 75%, transparent 79%),
-                radial-gradient(ellipse at 65% 45%, rgba(255, 255, 255, 0.25) 0%, transparent 8%),
-                radial-gradient(circle at 40% 30%, #b968c7, #8e44ad 40%, #6c3483 70%, #2c1a3a);
-            box-shadow: 
-                inset -28px -28px 60px rgba(15, 0, 30, 0.8),
-                inset 18px 18px 45px rgba(200, 150, 255, 0.15),
-                inset 0 0 90px rgba(138, 43, 226, 0.2),
-                0 0 45px rgba(186, 85, 211, 0.6),
-                0 0 85px rgba(147, 112, 219, 0.4),
-                0 0 125px rgba(138, 43, 226, 0.25);
+            background: url('https://upload.wikimedia.org/wikipedia/commons/5/56/Neptune_Full.jpg') center center/cover no-repeat;
+            border-radius: 50%;
             position: relative;
-            overflow: hidden;
         }
 
-        .planet.purple::before {
-            content: '';
-            position: absolute;
-            top: -5%;
-            left: -5%;
-            right: -5%;
-            bottom: -5%;
-            border-radius: 50%;
-            background: radial-gradient(circle at 40% 30%, rgba(200, 150, 255, 0.45), rgba(186, 85, 211, 0.25) 50%, transparent 75%);
-            animation: glow 4.5s ease-in-out infinite;
-        }
 
-        /* Add ring to purple planet */
-        .planet.purple::after {
-            content: '';
-            position: absolute;
-            width: 145%;
-            height: 145%;
-            top: -22.5%;
-            left: -22.5%;
-            border-radius: 50%;
-            border: 4px solid transparent;
-            border-top-color: rgba(200, 150, 255, 0.4);
-            border-bottom-color: rgba(200, 150, 255, 0.15);
-            transform: rotateX(75deg);
-            box-shadow: 
-                0 0 20px rgba(200, 150, 255, 0.5),
-                inset 0 0 20px rgba(200, 150, 255, 0.3);
-            animation: orbit-ring 25s linear infinite;
-        }
-
-        @keyframes orbit-ring {
-            from { transform: rotateX(75deg) rotateZ(0deg); }
-            to { transform: rotateX(75deg) rotateZ(360deg); }
-        }
 
         .planet-content {
             position: absolute;
@@ -600,9 +474,9 @@
         }
 
         .planet-icon {
-            font-size: 44px;
-            margin-bottom: 8px;
-            filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.5));
+            font-size: 32px;
+            margin-bottom: 6px;
+            filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.5));
             animation: pulse 2s ease-in-out infinite;
         }
 
@@ -612,17 +486,23 @@
         }
 
         .planet-title {
-            font-size: 18px;
+            font-size: 14px;
             font-weight: 700;
-            margin-bottom: 6px;
-            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.8);
+            margin-bottom: 4px;
+            text-shadow: 
+                0 0 3px rgba(0, 0, 0, 1),
+                0 0 6px rgba(0, 0, 0, 1),
+                0 2px 10px rgba(0, 0, 0, 0.9);
         }
 
         .planet-description {
-            font-size: 11px;
-            line-height: 1.4;
+            font-size: 9px;
+            line-height: 1.3;
             opacity: 0.95;
-            text-shadow: 0 1px 5px rgba(0, 0, 0, 0.8);
+            text-shadow: 
+                0 0 2px rgba(0, 0, 0, 1),
+                0 0 4px rgba(0, 0, 0, 1),
+                0 1px 5px rgba(0, 0, 0, 0.9);
         }
 
         /* Surface details - craters and features */
@@ -740,7 +620,7 @@
             }
 
             main {
-                padding: 40px 20px;
+                padding: 20px 10px;
             }
 
             .tools-section {
@@ -748,26 +628,27 @@
             }
 
             .tools-grid {
-                min-height: 1200px;
+                min-height: auto;
+                padding: 20px 0;
             }
 
             .planet.blue,
             .planet.red,
             .planet.purple {
-                width: 240px !important;
-                height: 240px !important;
+                width: 160px !important;
+                height: 160px !important;
             }
 
             .planet-title {
-                font-size: 18px;
+                font-size: 14px;
             }
 
             .planet-description {
-                font-size: 11px;
+                font-size: 9px;
             }
 
             .planet-icon {
-                font-size: 44px;
+                font-size: 32px;
             }
 
             .footer-toggle {
@@ -777,6 +658,21 @@
 
             .card {
                 padding: 20px;
+            }
+
+            .back-button {
+                top: 15px;
+                left: 15px;
+                padding: 10px 18px;
+                font-size: 14px;
+            }
+
+            .planet-surface {
+                padding: 50px 20px;
+            }
+
+            .surface-content h1 {
+                font-size: clamp(24px, 5vw, 40px);
             }
         }
 
@@ -821,17 +717,67 @@
         }
 
         @media (max-width: 480px) {
+            * {
+                -webkit-tap-highlight-color: transparent;
+            }
+
+            html, body {
+                width: 100%;
+                overflow-x: hidden;
+            }
+
+            .container {
+                padding: 0 12px;
+            }
+
+            .header {
+                padding: 30px 15px 20px;
+            }
+
+            .header h1 {
+                font-size: 24px;
+            }
+
+            .header p {
+                font-size: 12px;
+            }
+
+            main {
+                padding: 15px 10px;
+                width: 100%;
+                overflow-x: hidden;
+            }
+
             .section-title {
-                font-size: 20px;
+                font-size: 18px;
                 gap: 8px;
             }
 
             .section-icon {
-                font-size: 24px;
+                font-size: 20px;
             }
 
             .tools-grid {
                 grid-template-columns: 1fr;
+            }
+
+            .planet.blue,
+            .planet.red,
+            .planet.purple {
+                width: 130px !important;
+                height: 130px !important;
+            }
+
+            .planet-title {
+                font-size: 12px;
+            }
+
+            .planet-description {
+                font-size: 8px;
+            }
+
+            .planet-icon {
+                font-size: 28px;
             }
 
             .tabs {
@@ -839,8 +785,48 @@
             }
 
             .tab {
-                padding: 12px 20px;
-                font-size: 14px;
+                padding: 10px 16px;
+                font-size: 12px;
+            }
+
+            .back-button {
+                top: 12px;
+                left: 12px;
+                padding: 8px 14px;
+                font-size: 12px;
+                border-radius: 20px;
+            }
+
+            .surface-grid {
+                grid-template-columns: 1fr;
+                gap: 16px;
+            }
+
+            .surface-card {
+                padding: 20px;
+            }
+
+            .planet-surface {
+                padding: 40px 15px;
+                width: 100%;
+                overflow-x: hidden;
+            }
+
+            footer {
+                padding: 30px 16px;
+            }
+
+            .footer-toggle {
+                padding: 8px 14px;
+                font-size: 12px;
+            }
+
+            .surface-content h1 {
+                font-size: clamp(20px, 5vw, 32px);
+            }
+
+            .planet-container:hover:not(.zooming) {
+                filter: brightness(1.1) drop-shadow(0 0 20px rgba(200, 150, 255, 0.5));
             }
         }
     </style>
@@ -859,37 +845,34 @@
                 <div class="tools-grid" id="planetSystem">
                     <!-- Planets will be positioned by JavaScript -->
                     <a href="#" class="planet-container" data-planet="blue" data-page="video-game-tools">
-                        <div class="planet blue">
-                            <div class="planet-content">
-                                <div class="planet-icon">🎮</div>
-                                <div class="planet-title">Video Game Tools</div>
-                                <div class="planet-description">
-                                    Minecraft builders toolkit
-                                </div>
+                        <div class="planet blue"></div>
+                        <div class="planet-content">
+                            <div class="planet-icon">🎮</div>
+                            <div class="planet-title">Video Game Tools</div>
+                            <div class="planet-description">
+                                Minecraft builders toolkit
                             </div>
                         </div>
                     </a>
 
                     <a href="#" class="planet-container" data-planet="red" data-page="applications">
-                        <div class="planet red">
-                            <div class="planet-content">
-                                <div class="planet-icon">💻</div>
-                                <div class="planet-title">Applications</div>
-                                <div class="planet-description">
-                                    Useful apps & utilities
-                                </div>
+                        <div class="planet red"></div>
+                        <div class="planet-content">
+                            <div class="planet-icon">💻</div>
+                            <div class="planet-title">Applications</div>
+                            <div class="planet-description">
+                                Useful apps & utilities
                             </div>
                         </div>
                     </a>
 
                     <a href="#" class="planet-container" data-planet="purple" data-page="social-media-tools">
-                        <div class="planet purple">
-                            <div class="planet-content">
-                                <div class="planet-icon">📱</div>
-                                <div class="planet-title">Social Media Tools</div>
-                                <div class="planet-description">
-                                    Download Instagram, X, YouTube
-                                </div>
+                        <div class="planet purple"></div>
+                        <div class="planet-content">
+                            <div class="planet-icon">📱</div>
+                            <div class="planet-title">Social Media Tools</div>
+                            <div class="planet-description">
+                                Download Instagram, X, YouTube
                             </div>
                         </div>
                     </a>
@@ -1091,17 +1074,19 @@
         function positionPlanets() {
             const planetContainers = document.querySelectorAll('.planet-container');
             const isMobile = window.innerWidth <= 768;
+            const isSmallMobile = window.innerWidth <= 480;
             
             if (isMobile) {
-                // Stack vertically on mobile
+                // Stack vertically on mobile/tablet with better spacing
                 planetContainers.forEach((container, index) => {
                     container.style.position = 'relative';
-                    container.style.margin = '180px auto';
+                    const margin = isSmallMobile ? '120px auto' : '150px auto';
+                    container.style.margin = margin;
                     container.style.display = 'block';
                     container.style.width = 'fit-content';
                 });
             } else {
-                // Random positioning on desktop
+                // Random positioning on desktop with proper spacing
                 const positions = [
                     { top: '5%', left: '8%', zIndex: 3 },
                     { top: '50%', left: '35%', zIndex: 2 },
@@ -1110,10 +1095,13 @@
                 
                 planetContainers.forEach((container, index) => {
                     const pos = positions[index];
+                    container.style.position = 'absolute';
                     container.style.top = pos.top;
                     container.style.left = pos.left || 'auto';
                     container.style.right = pos.right || 'auto';
                     container.style.zIndex = pos.zIndex;
+                    container.style.margin = '0';
+                    container.style.display = 'block';
                 });
             }
         }
@@ -1221,19 +1209,28 @@
             stars.push(star);
         }
 
-        // Mouse move parallax effect with smoother movement
+        // Mouse move parallax effect with smoother movement (disabled on mobile)
         let mouseX = 0;
         let mouseY = 0;
         let targetMouseX = 0;
         let targetMouseY = 0;
+        const isMobileDevice = window.innerWidth <= 768;
 
-        document.addEventListener('mousemove', (e) => {
-            targetMouseX = (e.clientX / window.innerWidth - 0.5) * 2;
-            targetMouseY = (e.clientY / window.innerHeight - 0.5) * 2;
-        });
+        if (!isMobileDevice) {
+            document.addEventListener('mousemove', (e) => {
+                targetMouseX = (e.clientX / window.innerWidth - 0.5) * 2;
+                targetMouseY = (e.clientY / window.innerHeight - 0.5) * 2;
+            });
+        }
 
-        // Animate stars with smooth parallax
+        // Animate stars with smooth parallax (only on desktop)
         function animateStars() {
+            if (isMobileDevice) {
+                // Skip parallax on mobile for better performance
+                requestAnimationFrame(animateStars);
+                return;
+            }
+            
             // Smooth mouse movement
             mouseX += (targetMouseX - mouseX) * 0.05;
             mouseY += (targetMouseY - mouseY) * 0.05;
@@ -1265,14 +1262,26 @@
         function createShootingStar() {
             const shootingStar = document.createElement('div');
             shootingStar.className = 'shooting-star';
-            shootingStar.style.left = (50 + Math.random() * 50) + '%';
-            shootingStar.style.top = (Math.random() * 30) + '%';
+            
+            // Random position starting from top-right area
+            const startLeft = 30 + Math.random() * 70; // 30-100% from left
+            const startTop = Math.random() * 40; // 0-40% from top
+            
+            shootingStar.style.left = startLeft + '%';
+            shootingStar.style.top = startTop + '%';
+            
+            // Adjust animation duration based on screen size
+            const isMobile = window.innerWidth <= 768;
+            const duration = isMobile ? '1.2s' : '1.5s';
+            shootingStar.style.animationDuration = duration;
             
             starryBg.appendChild(shootingStar);
             
+            // Clean up after animation completes
+            const timeout = isMobile ? 1200 : 1500;
             setTimeout(() => {
                 shootingStar.remove();
-            }, 1500);
+            }, timeout);
         }
 
         // Spawn shooting stars randomly
