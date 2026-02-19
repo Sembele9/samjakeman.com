@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Instagram Reel Downloader - Sam Jakeman</title>
+    <link rel="stylesheet" href="galaxy-background.css">
     <style>
         * {
             margin: 0;
@@ -18,28 +19,6 @@
             line-height: 1.6;
             overflow-x: hidden;
             position: relative;
-        }
-
-        .starry-background {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 0;
-            pointer-events: none;
-            background: radial-gradient(ellipse at 20% 30%, rgba(88, 28, 135, 0.3) 0%, transparent 50%),
-                        radial-gradient(ellipse at 80% 70%, rgba(29, 78, 216, 0.25) 0%, transparent 50%),
-                        radial-gradient(ellipse at 50% 50%, rgba(139, 92, 246, 0.2) 0%, transparent 60%),
-                        #000000;
-        }
-
-        .star {
-            position: absolute;
-            background: white;
-            border-radius: 50%;
-            box-shadow: 0 0 3px rgba(255, 255, 255, 0.8);
-            transition: transform 0.1s ease-out;
         }
 
         header, .container {
@@ -137,77 +116,70 @@
         <section class="tool-section">
             <label for="reelUrl">Instagram Reel URL:</label>
             <input type="text" id="reelUrl" placeholder="Paste Instagram Reel link here...">
-            <button onclick="alert('This is a placeholder. Actual download functionality is not implemented.')">Download Reel</button>
+            <button onclick="downloadReel()">Download Reel</button>
             <div class="result" id="result">
-                <em>Note: This is a placeholder tool. Actual download functionality is not implemented.</em>
+                <em>Paste an Instagram Reel URL above and click Download</em>
             </div>
         </section>
     </div>
 
     <script>
-        // Create starry background
-        const starryBg = document.getElementById('starryBg');
-        const numStars = 200;
-        const stars = [];
-
-        // Create stars
-        for (let i = 0; i < numStars; i++) {
-            const star = document.createElement('div');
-            star.className = 'star';
+        async function downloadReel() {
+            const url = document.getElementById('reelUrl').value.trim();
+            const resultDiv = document.getElementById('result');
             
-            // Random size (1-3px)
-            const size = Math.random() * 2 + 1;
-            star.style.width = size + 'px';
-            star.style.height = size + 'px';
+            if (!url) {
+                resultDiv.innerHTML = '<em style="color: #ff6b6b;">Please enter an Instagram Reel URL</em>';
+                return;
+            }
             
-            // Random position
-            star.style.left = Math.random() * 100 + '%';
-            star.style.top = Math.random() * 100 + '%';
+            if (!url.includes('instagram.com')) {
+                resultDiv.innerHTML = '<em style="color: #ff6b6b;">Please enter a valid Instagram URL</em>';
+                return;
+            }
             
-            // Random opacity for twinkling effect
-            star.style.opacity = Math.random() * 0.5 + 0.5;
+            resultDiv.innerHTML = '<em>Fetching video... This may take 10-15 seconds...</em>';
             
-            // Store initial position and depth
-            star.dataset.x = parseFloat(star.style.left);
-            star.dataset.y = parseFloat(star.style.top);
-            star.dataset.depth = Math.random() * 0.5 + 0.5; // Depth for parallax
-            
-            starryBg.appendChild(star);
-            stars.push(star);
-        }
-
-        // Mouse move parallax effect
-        let mouseX = 0;
-        let mouseY = 0;
-
-        document.addEventListener('mousemove', (e) => {
-            mouseX = (e.clientX / window.innerWidth - 0.5) * 2; // -1 to 1
-            mouseY = (e.clientY / window.innerHeight - 0.5) * 2; // -1 to 1
-        });
-
-        // Animate stars
-        function animateStars() {
-            stars.forEach(star => {
-                const depth = parseFloat(star.dataset.depth);
-                const moveX = mouseX * 20 * depth;
-                const moveY = mouseY * 20 * depth;
+            try {
+                const response = await fetch('/api/download', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ url })
+                });
                 
-                star.style.transform = `translate(${moveX}px, ${moveY}px)`;
-            });
-            
-            requestAnimationFrame(animateStars);
-        }
-
-        animateStars();
-
-        // Twinkling effect
-        setInterval(() => {
-            stars.forEach(star => {
-                if (Math.random() > 0.97) {
-                    star.style.opacity = Math.random() * 0.5 + 0.5;
+                const data = await response.json();
+                
+                if (!response.ok) {
+                    throw new Error(data.error || 'Failed to fetch video');
                 }
-            });
-        }, 100);
+                
+                if (data.videoUrl) {
+                    resultDiv.innerHTML = `
+                        <p style="color: #51cf66; margin-bottom: 12px;">✓ Video found!</p>
+                        <a href="${data.videoUrl}" 
+                           download="instagram-reel.mp4" 
+                           target="_blank"
+                           style="display: inline-block; background: #405de6; color: white; padding: 10px 20px; border-radius: 6px; text-decoration: none; font-weight: 600;">
+                           📥 Download Video
+                        </a>
+                        <p style="margin-top: 12px; font-size: 13px; opacity: 0.8;">Click the button above to download or right-click → Save Link As</p>
+                    `;
+                } else {
+                    throw new Error('Video URL not found');
+                }
+            } catch (error) {
+                resultDiv.innerHTML = `<em style="color: #ff6b6b;">Error: ${error.message}</em>`;
+            }
+        }
+        
+        document.getElementById('reelUrl').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                downloadReel();
+            }
+        });
     </script>
+    <script src="galaxy-background.js"></script>
 </body>
 </html>
