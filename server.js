@@ -97,6 +97,11 @@ const path = require("path");
 
 app.use(express.static(__dirname));
 
+// Redirect /index.html to root
+app.get("/index.html", (req, res) => {
+  res.redirect(301, "/");
+});
+
 app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "index.html"));
 });

@@ -1,0 +1,142 @@
+/* Shared Navigation - Use across all pages */
+
+/* Burger Menu - Overhauled */
+.burger-menu {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 10000;
+    cursor: pointer;
+    width: 60px;
+    height: 60px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    pointer-events: auto;
+    background: rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(10px);
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    padding: 15px;
+    transition: all 0.1s ease;
+}
+
+.burger-menu:hover {
+    background: rgba(0, 0, 0, 0.5);
+    border-color: rgba(255, 255, 255, 0.4);
+    transform: scale(1.05);
+}
+
+.burger-line {
+    width: 30px;
+    height: 3px;
+    background: white;
+    border-radius: 3px;
+    transition: all 0.1s ease;
+    box-shadow: 0 0 8px rgba(255, 255, 255, 0.5);
+}
+
+.burger-menu.active {
+    background: rgba(0, 0, 0, 0.6);
+}
+
+.burger-menu.active .burger-line:nth-child(1) {
+    transform: translateY(11px) rotate(45deg);
+}
+
+.burger-menu.active .burger-line:nth-child(2) {
+    opacity: 0;
+    transform: scaleX(0);
+}
+
+.burger-menu.active .burger-line:nth-child(3) {
+    transform: translateY(-11px) rotate(-45deg);
+}
+
+/* Menu Overlay - Instant */
+.menu-overlay {
+    position: fixed;
+    top: 0;
+    right: -100%;
+    width: 380px;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.92);
+    backdrop-filter: blur(20px);
+    z-index: 9999;
+    transition: right 0.15s ease-out;
+    padding: 120px 40px 40px;
+    box-shadow: -10px 0 40px rgba(0, 0, 0, 0.8);
+    border-left: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.menu-overlay.active {
+    right: 0;
+}
+
+.menu-overlay nav {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.menu-overlay a {
+    color: white;
+    text-decoration: none;
+    font-size: 22px;
+    font-weight: 600;
+    padding: 18px 24px;
+    border-radius: 12px;
+    transition: all 0.1s ease;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    text-align: left;
+    display: block;
+}
+
+.menu-overlay a:hover {
+    background: rgba(255, 255, 255, 0.2);
+    border-color: rgba(255, 255, 255, 0.4);
+    transform: translateX(-5px);
+    box-shadow: 0 4px 20px rgba(255, 255, 255, 0.15);
+}
+
+/* Menu close area */
+.menu-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 9998;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.15s ease;
+}
+
+.menu-backdrop.active {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .burger-menu {
+        top: 15px;
+        right: 15px;
+        width: 55px;
+        height: 55px;
+    }
+
+    .menu-overlay {
+        width: 100%;
+        right: -100%;
+        padding: 100px 30px 30px;
+    }
+
+    .menu-overlay.active {
+        right: 0;
+    }
+}

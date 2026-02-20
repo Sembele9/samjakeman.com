@@ -1,4 +1,4 @@
-/* HD Galaxy Background Styles */
+/* 8K HD Galaxy Background Styles */
 .starry-background {
     position: fixed;
     top: 0;
@@ -7,13 +7,7 @@
     height: 100%;
     z-index: 0;
     pointer-events: none;
-    background: 
-        radial-gradient(ellipse at 15% 20%, rgba(88, 28, 135, 0.4) 0%, transparent 40%),
-        radial-gradient(ellipse at 85% 75%, rgba(29, 78, 216, 0.35) 0%, transparent 45%),
-        radial-gradient(ellipse at 50% 50%, rgba(139, 92, 246, 0.25) 0%, transparent 50%),
-        radial-gradient(ellipse at 70% 30%, rgba(255, 107, 107, 0.15) 0%, transparent 35%),
-        radial-gradient(ellipse at 30% 80%, rgba(78, 205, 196, 0.12) 0%, transparent 40%),
-        #000000;
+    background: #000000;
 }
 
 .star {
@@ -21,23 +15,29 @@
     border-radius: 50%;
     transition: transform 0.15s ease-out;
     pointer-events: none;
+    z-index: 2;
 }
 
 .star.tiny {
-    box-shadow: 0 0 1px rgba(255, 255, 255, 0.9);
+    box-shadow: 0 0 1.5px rgba(255, 255, 255, 0.95),
+                0 0 3px rgba(255, 255, 255, 0.4);
 }
 
 .star.small {
-    box-shadow: 0 0 2px rgba(255, 255, 255, 0.95);
+    box-shadow: 0 0 2px rgba(255, 255, 255, 1),
+                0 0 4px rgba(255, 255, 255, 0.5);
 }
 
 .star.medium {
-    box-shadow: 0 0 4px 1px rgba(255, 255, 255, 0.9);
+    box-shadow: 0 0 4px 1px rgba(255, 255, 255, 1),
+                0 0 8px 2px rgba(255, 255, 255, 0.6),
+                0 0 12px 3px rgba(200, 220, 255, 0.3);
 }
 
 .star.large {
     box-shadow: 0 0 6px 2px rgba(255, 255, 255, 1),
-                0 0 10px 3px rgba(200, 220, 255, 0.5);
+                0 0 12px 4px rgba(255, 255, 255, 0.7),
+                0 0 20px 6px rgba(200, 220, 255, 0.5);
 }
 
 .star.blue {
@@ -67,29 +67,36 @@
         opacity: 1;
     }
     100% {
-        transform: translateX(-300px) translateY(300px);
+        transform: translateX(-400px) translateY(400px);
         opacity: 0;
     }
 }
 
 .shooting-star {
     position: absolute;
-    width: 2px;
-    height: 2px;
+    width: 3px;
+    height: 3px;
     background: white;
     border-radius: 50%;
-    box-shadow: 0 0 10px 2px rgba(255, 255, 255, 0.8),
-                0 0 20px 4px rgba(255, 255, 255, 0.4);
+    box-shadow: 0 0 12px 3px rgba(255, 255, 255, 0.9),
+                0 0 24px 6px rgba(255, 255, 255, 0.5),
+                0 0 36px 9px rgba(200, 220, 255, 0.3);
     animation: shooting-star 1.5s ease-out forwards;
 }
 
 .shooting-star::after {
     content: '';
     position: absolute;
-    top: 0;
-    left: 0;
-    width: 100px;
-    height: 1px;
-    background: linear-gradient(90deg, white, transparent);
-    transform: translateX(-100px);
+    top: -75px;
+    right: -75px;
+    width: 150px;
+    height: 2px;
+    background: linear-gradient(90deg, 
+        transparent 0%,
+        rgba(255, 255, 255, 0.3) 50%,
+        rgba(255, 255, 255, 0.6) 80%,
+        rgba(255, 255, 255, 0.9) 100%);
+    transform: rotate(-45deg);
+    transform-origin: right center;
+    filter: blur(1px);
 }

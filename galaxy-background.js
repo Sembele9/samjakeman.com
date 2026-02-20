@@ -1,14 +1,14 @@
-// HD Galaxy Background Script
+// HD Galaxy Background Script - 8K Quality
 // Create starry background
 const starryBg = document.getElementById('starryBg');
-const numStars = 800;
+const numStars = 3500;
 const stars = [];
 const starColors = ['blue', 'white', 'yellow', 'red'];
 const starSizes = [
-    { class: 'tiny', size: [0.5, 1], weight: 0.6 },
-    { class: 'small', size: [1, 1.5], weight: 0.25 },
-    { class: 'medium', size: [1.5, 2.5], weight: 0.12 },
-    { class: 'large', size: [2.5, 4], weight: 0.03 }
+    { class: 'tiny', size: [0.5, 1], weight: 0.75 },
+    { class: 'small', size: [1, 1.8], weight: 0.18 },
+    { class: 'medium', size: [1.8, 3], weight: 0.06 },
+    { class: 'large', size: [3, 5], weight: 0.01 }
 ];
 
 // Function to get weighted random star size
@@ -121,9 +121,9 @@ function createShootingStar() {
     }, 1500);
 }
 
-// Spawn shooting stars randomly
+// Spawn shooting stars randomly - More frequent
 setInterval(() => {
-    if (Math.random() > 0.7) {
+    if (Math.random() > 0.3) {
         createShootingStar();
     }
-}, 3000);
+}, 1200);

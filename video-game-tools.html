@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Video Game Tools - Sam Jakeman</title>
     <link rel="stylesheet" href="galaxy-background.css">
+    <link rel="stylesheet" href="shared-background.css">
+    <link rel="stylesheet" href="shared-navigation.css">
     <style>
         * {
             margin: 0;
@@ -152,10 +154,41 @@
     </style>
 </head>
 <body>
+    <!-- Galaxy Background -->
     <div class="starry-background" id="starryBg"></div>
+    
+    <!-- Milky Way Layer -->
+    <div class="milky-way"></div>
+    
+    <!-- Mountains -->
+    <div class="mountains">
+        <div class="mountain-layer-1"></div>
+        <div class="mountain-layer-2"></div>
+        <div class="mountain-layer-3"></div>
+    </div>
+
+    <!-- Burger Menu Icon -->
+    <div class="burger-menu" id="burgerMenu">
+        <div class="burger-line"></div>
+        <div class="burger-line"></div>
+        <div class="burger-line"></div>
+    </div>
+
+    <!-- Menu Backdrop -->
+    <div class="menu-backdrop" id="menuBackdrop"></div>
+
+    <!-- Menu Overlay -->
+    <div class="menu-overlay" id="menuOverlay">
+        <nav>
+            <a href="/">Home</a>
+            <a href="/video-game-tools.html">Video Game Tools</a>
+            <a href="/applications.html">Applications</a>
+            <a href="/social-media-tools.html">Social Media Tools</a>
+        </nav>
+    </div>
+
     <header class="header">
         <div class="container">
-            <a href="index.html" class="back-link">← Back to Home</a>
             <h1>🎮 Video Game Tools</h1>
         </div>
     </header>
@@ -193,5 +226,6 @@
     </footer>
 
     <script src="galaxy-background.js"></script>
+    <script src="shared-navigation.js"></script>
 </body>
 </html>
