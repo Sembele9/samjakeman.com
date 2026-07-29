@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Instagram Reel Downloader - Sam Jakeman</title>
+    <title>Tool Retired - Sam Jakeman</title>
     <link rel="stylesheet" href="shared-background.css">
     <link rel="stylesheet" href="shared-navigation.css">
     <style>
@@ -155,123 +155,18 @@
     </div>
 
     <header class="header">
-        <h1>Instagram Reel Downloader</h1>
-        <p>Download Instagram Reels quickly and easily</p>
+        <h1>Tool Retired</h1>
+        <p>This page is no longer active.</p>
     </header>
     <div class="container">
         <section class="tool-section">
-            <label for="reelUrl">Instagram Reel URL:</label>
-            <input type="text" id="reelUrl" placeholder="Paste Instagram Reel link here...">
-            <button onclick="downloadReel()">Download Reel</button>
             <div class="result" id="result">
-                <em>Paste an Instagram Reel URL above and click Download</em>
+                <p>This tool has been removed from the site.</p>
+                <p style="margin-top: 10px;">Please use the Social Media Tools page for current and upcoming compliant features.</p>
+                <p style="margin-top: 16px;"><a href="social-media-tools.html" class="back-btn">Go to Social Media Tools</a></p>
             </div>
         </section>
     </div>
-
-    <script>
-        async function downloadReel() {
-            const url = document.getElementById('reelUrl').value.trim();
-            const resultDiv = document.getElementById('result');
-            
-            if (!url) {
-                resultDiv.innerHTML = '<em style="color: #ff6b6b;">Please enter an Instagram Reel URL</em>';
-                return;
-            }
-            
-            if (!url.includes('instagram.com')) {
-                resultDiv.innerHTML = '<em style="color: #ff6b6b;">Please enter a valid Instagram URL</em>';
-                return;
-            }
-            
-            // Show loading spinner with progress
-            resultDiv.innerHTML = `
-                <div class="spinner"></div>
-                <div class="progress-container">
-                    <div class="progress-bar" id="progressBar" style="width: 0%"></div>
-                </div>
-                <div class="progress-text" id="progressText">Launching browser...</div>
-            `;
-            
-            // Simulate progress updates
-            let progress = 0;
-            const progressBar = document.getElementById('progressBar');
-            const progressText = document.getElementById('progressText');
-            const progressSteps = [
-                { percent: 20, text: 'Launching browser...' },
-                { percent: 40, text: 'Connecting to Instagram...' },
-                { percent: 60, text: 'Loading page...' },
-                { percent: 80, text: 'Extracting video...' },
-                { percent: 95, text: 'Almost done...' }
-            ];
-            
-            let stepIndex = 0;
-            const progressInterval = setInterval(() => {
-                if (stepIndex < progressSteps.length) {
-                    const step = progressSteps[stepIndex];
-                    progressBar.style.width = step.percent + '%';
-                    progressText.textContent = step.text;
-                    stepIndex++;
-                } else {
-                    clearInterval(progressInterval);
-                }
-            }, 3000);
-            
-            try {
-                const apiUrl = window.location.hostname === 'localhost' 
-                    ? 'http://localhost:10000/api/download'
-                    : 'https://api.samjakeman.com/api/download';
-                
-                const response = await fetch(apiUrl, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({ url })
-                });
-                
-                clearInterval(progressInterval);
-                
-                // Check if response is JSON
-                const contentType = response.headers.get('content-type');
-                if (!contentType || !contentType.includes('application/json')) {
-                    const text = await response.text();
-                    console.error('Server returned:', text);
-                    throw new Error('Server error - Puppeteer may have crashed. Check if URL is valid.');
-                }
-                
-                const data = await response.json();
-                
-                if (!response.ok) {
-                    throw new Error(data.error || 'Failed to fetch video');
-                }
-                
-                if (data.videoUrl) {
-                    resultDiv.innerHTML = `
-                        <p style="color: #51cf66; margin-bottom: 12px;">✓ Video found!</p>
-                        <a href="${data.videoUrl}" 
-                           download="instagram-reel.mp4" 
-                           target="_blank"
-                           style="display: inline-block; background: #405de6; color: white; padding: 10px 20px; border-radius: 6px; text-decoration: none; font-weight: 600;">
-                           📥 Download Video
-                        </a>
-                        <p style="margin-top: 12px; font-size: 13px; opacity: 0.8;">Click the button above to download or right-click → Save Link As</p>
-                    `;
-                } else {
-                    throw new Error('Video URL not found');
-                }
-            } catch (error) {
-                clearInterval(progressInterval);
-                resultDiv.innerHTML = `<em style="color: #ff6b6b;">Error: ${error.message}</em>`;
-            }
-        }
-        
-        document.getElementById('reelUrl').addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') {
-                downloadReel();
-            }
-        });
-    </script>
 
     <!-- Social Media Footer -->
     <div class="social-footer">
