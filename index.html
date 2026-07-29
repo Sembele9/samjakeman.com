@@ -3,11 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sam Jakeman - Portfolio</title>
+    <title>Sam Jakeman</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@900&family=Poppins:wght@700;800;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="galaxy-background.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="shared-background.css">
+    <link rel="stylesheet" href="shared-navigation.css">
     <style>
         * {
             margin: 0;
@@ -15,482 +16,132 @@
             box-sizing: border-box;
         }
 
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
-            background: #000000;
-            color: #fff;
-            overflow: hidden;
-            position: relative;
-            height: 100vh;
+        .hero {
+            min-height: 100vh;
+            display: grid;
+            place-items: center;
+            padding: 80px 16px 120px;
         }
 
-        /* Starry Sky Background with atmospheric blue */
-        .starry-background {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 0;
-            pointer-events: none;
-            background: 
-                radial-gradient(ellipse at 30% 20%, rgba(15, 20, 35, 0.4) 0%, transparent 40%),
-                radial-gradient(ellipse at 70% 80%, rgba(10, 15, 25, 0.3) 0%, transparent 35%),
-                #000000;
+        .hero-panel {
+            width: min(980px, 100%);
+            border-radius: 20px;
+            background: rgba(10, 17, 30, 0.76);
+            border: 1px solid rgba(137, 180, 255, 0.3);
+            box-shadow: 0 22px 48px rgba(0, 0, 0, 0.32);
+            padding: 32px;
         }
 
-        /* Milky Way Layer with Rotation - Realistic Colors with Blue Hues */
-        .milky-way {
-            position: fixed;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            z-index: 1;
-            pointer-events: none;
-            background: 
-                radial-gradient(ellipse 180% 60% at 50% 50%, rgba(220, 215, 200, 0.08) 0%, transparent 50%),
-                radial-gradient(ellipse 160% 55% at 48% 51%, rgba(200, 195, 180, 0.07) 0%, transparent 48%),
-                radial-gradient(ellipse 140% 50% at 52% 49%, rgba(180, 175, 160, 0.06) 0%, transparent 45%),
-                radial-gradient(ellipse 120% 45% at 49% 52%, rgba(160, 155, 145, 0.055) 0%, transparent 43%),
-                radial-gradient(ellipse 100% 40% at 51% 48%, rgba(140, 135, 130, 0.05) 0%, transparent 40%),
-                radial-gradient(ellipse 90% 35% at 46% 50%, rgba(100, 140, 180, 0.045) 0%, transparent 38%),
-                radial-gradient(ellipse 80% 30% at 54% 50%, rgba(120, 160, 200, 0.04) 0%, transparent 35%),
-                radial-gradient(ellipse at 35% 55%, rgba(90, 110, 150, 0.035) 0%, transparent 30%),
-                radial-gradient(ellipse at 65% 45%, rgba(110, 130, 170, 0.03) 0%, transparent 28%),
-                radial-gradient(ellipse at 42% 58%, rgba(80, 60, 100, 0.025) 0%, transparent 25%),
-                radial-gradient(ellipse at 58% 42%, rgba(70, 90, 120, 0.022) 0%, transparent 23%);
-            animation: rotateSky 240s linear infinite;
-            transform-origin: center center;
-        }
-
-        @keyframes rotateSky {
-            from {
-                transform: rotate(0deg);
-            }
-            to {
-                transform: rotate(360deg);
-            }
-        }
-
-        /* Mountains Layer - 8K Quality */
-        .mountains {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            height: 40vh;
-            z-index: 5;
-            pointer-events: none;
-        }
-
-        .mountain-layer-1 {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2400 600" preserveAspectRatio="none"><path d="M0,600 L0,400 L80,420 L140,380 L180,410 L240,360 L280,340 L320,300 L360,280 L420,250 L480,270 L540,240 L600,200 L680,180 L760,220 L840,190 L920,160 L1000,140 L1080,120 L1160,80 L1220,60 L1280,100 L1360,130 L1440,150 L1520,180 L1600,210 L1680,240 L1740,270 L1800,300 L1860,330 L1920,360 L2000,400 L2080,430 L2160,460 L2240,490 L2320,520 L2400,550 L2400,600 Z" fill="%23000000"/></svg>');
-            background-position: bottom;
-            background-repeat: no-repeat;
-            background-size: 100% 100%;
-        }
-
-        .mountain-layer-2 {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            height: 75%;
-            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2400 450" preserveAspectRatio="none"><path d="M0,450 L0,320 L100,310 L180,290 L260,270 L340,250 L420,230 L500,200 L580,170 L660,140 L740,110 L820,80 L900,60 L980,50 L1060,70 L1140,90 L1220,110 L1300,130 L1380,160 L1460,190 L1540,220 L1620,250 L1700,280 L1780,310 L1860,340 L1940,370 L2020,400 L2100,420 L2180,430 L2260,440 L2340,445 L2400,448 L2400,450 Z" fill="%23020202"/></svg>');
-            background-position: bottom;
-            background-repeat: no-repeat;
-            background-size: 100% 100%;
-        }
-
-        .mountain-layer-3 {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            height: 50%;
-            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2400 300" preserveAspectRatio="none"><path d="M0,300 L0,220 L120,210 L240,190 L360,160 L480,130 L600,100 L720,70 L840,50 L960,40 L1080,60 L1200,80 L1320,110 L1440,140 L1560,170 L1680,200 L1800,230 L1920,250 L2040,260 L2160,270 L2280,280 L2400,290 L2400,300 Z" fill="%23000000"/></svg>');
-            background-position: bottom;
-            background-repeat: no-repeat;
-            background-size: 100% 100%;
-        }
-
-        /* Main content container */
-        .container {
-            position: relative;
-            z-index: 10;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: flex-start;
-            height: 100vh;
-            padding: 60px;
-            padding-left: 80px;
-        }
-
-        /* Burger Menu - Overhauled */
-        .burger-menu {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            z-index: 10000;
-            cursor: pointer;
-            width: 60px;
-            height: 60px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            gap: 8px;
-            pointer-events: auto;
-            background: rgba(0, 0, 0, 0.3);
-            backdrop-filter: blur(10px);
-            border-radius: 12px;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            padding: 15px;
-            transition: all 0.1s ease;
-        }
-
-        .burger-menu:hover {
-            background: rgba(0, 0, 0, 0.5);
-            border-color: rgba(255, 255, 255, 0.4);
-            transform: scale(1.05);
-        }
-
-        .burger-line {
-            width: 30px;
-            height: 3px;
-            background: white;
-            border-radius: 3px;
-            transition: all 0.1s ease;
-            box-shadow: 0 0 8px rgba(255, 255, 255, 0.5);
-        }
-
-        .burger-menu.active {
-            background: rgba(0, 0, 0, 0.6);
-        }
-
-        .burger-menu.active .burger-line:nth-child(1) {
-            transform: translateY(11px) rotate(45deg);
-        }
-
-        .burger-menu.active .burger-line:nth-child(2) {
-            opacity: 0;
-            transform: scaleX(0);
-        }
-
-        .burger-menu.active .burger-line:nth-child(3) {
-            transform: translateY(-11px) rotate(-45deg);
-        }
-
-        /* Menu Overlay - Instant */
-        .menu-overlay {
-            position: fixed;
-            top: 0;
-            right: -100%;
-            width: 380px;
-            height: 100vh;
-            background: rgba(0, 0, 0, 0.92);
-            backdrop-filter: blur(20px);
-            z-index: 9999;
-            transition: right 0.15s ease-out;
-            padding: 120px 40px 40px;
-            box-shadow: -10px 0 40px rgba(0, 0, 0, 0.8);
-            border-left: 1px solid rgba(255, 255, 255, 0.15);
-        }
-
-        .menu-overlay.active {
-            right: 0;
-        }
-
-        .menu-overlay nav {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-        }
-
-        .menu-overlay a {
-            color: white;
-            text-decoration: none;
-            font-size: 22px;
-            font-weight: 600;
-            padding: 18px 24px;
-            border-radius: 12px;
-            transition: all 0.1s ease;
-            background: rgba(255, 255, 255, 0.08);
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            text-align: left;
-            display: block;
-        }
-
-        .menu-overlay a:hover {
-            background: rgba(255, 255, 255, 0.2);
-            border-color: rgba(255, 255, 255, 0.4);
-            transform: translateX(-5px);
-            box-shadow: 0 4px 20px rgba(255, 255, 255, 0.15);
-        }
-
-        /* Menu close area */
-        .menu-backdrop {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100vh;
-            background: rgba(0, 0, 0, 0.5);
-            z-index: 9998;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.15s ease;
-        }
-
-        .menu-backdrop.active {
-            opacity: 1;
-            pointer-events: auto;
-        }
-
-        /* Big Chunky Text */
-        .hero-text {
-            font-family: 'Poppins', sans-serif;
-            text-align: left;
-            line-height: 0.85;
-            user-select: none;
-        }
-
-        .hero-text .line1 {
-            font-size: clamp(60px, 11vw, 150px);
-            font-weight: 900;
-            color: #ffffff;
-            text-shadow: 
-                0 0 5px rgba(88, 28, 135, 0.2),
-                2px 2px 0px rgba(88, 28, 135, 0.15);
-            letter-spacing: -4px;
-            display: block;
-            margin-bottom: -12px;
-            text-transform: uppercase;
-        }
-
-        .hero-text .line2 {
-            font-size: clamp(85px, 16vw, 230px);
-            font-weight: 900;
-            color: #ffffff;
-            text-shadow: 
-                0 0 8px rgba(255, 255, 255, 0.3),
-                0 0 15px rgba(99, 102, 241, 0.2),
-                3px 3px 0px rgba(88, 28, 135, 0.2);
-            letter-spacing: -6px;
-            display: block;
-            margin-bottom: -15px;
-            text-transform: uppercase;
-        }
-
-        .hero-text .line3 {
-            font-size: clamp(60px, 11vw, 150px);
-            font-weight: 900;
-            color: #ffffff;
-            text-shadow: 
-                0 0 5px rgba(88, 28, 135, 0.2),
-                2px 2px 0px rgba(88, 28, 135, 0.15);
-            letter-spacing: -4px;
-            display: block;
-            text-transform: uppercase;
-        }
-
-        /* Floating animation */
-        @keyframes float {
-            0%, 100% {
-                transform: translateY(0px);
-            }
-            50% {
-                transform: translateY(-20px);
-            }
-        }
-
-        .hero-text {
-            animation: float 6s ease-in-out infinite;
-        }
-
-        /* Featured Tool Button */
-        .featured-button {
-            position: fixed;
-            left: 40px;
-            bottom: 100px;
-            z-index: 100;
-        }
-
-        .featured-button a {
+        .hero-kicker {
             display: inline-flex;
             align-items: center;
+            gap: 8px;
+            padding: 8px 12px;
+            border-radius: 999px;
+            background: rgba(96, 165, 250, 0.14);
+            border: 1px solid rgba(137, 180, 255, 0.34);
+            color: #c9e0ff;
+            font-size: 12px;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            margin-bottom: 14px;
+        }
+
+        h1 {
+            font-size: clamp(44px, 10vw, 100px);
+            line-height: 0.92;
+            letter-spacing: -0.05em;
+            color: #eef5ff;
+        }
+
+        .subtitle {
+            margin-top: 14px;
+            max-width: 58ch;
+            color: #a9bbd4;
+            font-size: clamp(16px, 2.2vw, 20px);
+            line-height: 1.55;
+        }
+
+        .cta-grid {
+            margin-top: 28px;
+            display: grid;
             gap: 12px;
-            padding: 16px 28px;
-            background: rgba(30, 30, 30, 0.6);
-            backdrop-filter: blur(10px);
-            color: white;
-            text-decoration: none;
-            border-radius: 14px;
-            font-size: 18px;
-            font-weight: 700;
-            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
-            border: 2px solid rgba(255, 255, 255, 0.3);
-            transition: all 0.2s ease;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
         }
 
-        .featured-button a:hover {
-            transform: translateY(-3px);
-            background: rgba(40, 40, 40, 0.7);
-            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5);
-            border-color: rgba(255, 255, 255, 0.5);
-        }
-
-        .featured-button svg {
-            width: 24px;
-            height: 24px;
-            fill: white;
-        }
-
-        /* Social Media Footer */
-        .social-footer {
-            position: fixed;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            z-index: 1000;
-            display: flex;
-            gap: 20px;
-            align-items: center;
-        }
-
-        .social-link {
-            display: flex;
+        .cta {
+            display: inline-flex;
             align-items: center;
             justify-content: center;
-            width: 50px;
-            height: 50px;
-            background: rgba(255, 255, 255, 0.15);
+            min-height: 52px;
+            padding: 12px 14px;
             border-radius: 12px;
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.3);
             text-decoration: none;
-            transition: all 0.2s ease;
+            font-weight: 700;
+            font-size: 15px;
+            letter-spacing: 0.01em;
+            border: 1px solid rgba(137, 180, 255, 0.34);
+            color: #eaf2ff;
+            background: rgba(18, 30, 50, 0.72);
+            transition: transform 0.18s ease, border-color 0.18s ease, background 0.18s ease;
+            text-align: center;
         }
 
-        .social-link:hover {
-            background: rgba(255, 255, 255, 0.25);
-            border-color: rgba(255, 255, 255, 0.5);
-            transform: translateY(-3px);
+        .cta:hover {
+            transform: translateY(-2px);
+            border-color: rgba(137, 180, 255, 0.7);
+            background: rgba(28, 42, 66, 0.9);
         }
 
-        .social-link svg {
-            width: 28px;
-            height: 28px;
-            fill: white;
+        .cta.primary {
+            background: linear-gradient(135deg, rgba(37, 99, 235, 0.8), rgba(14, 116, 144, 0.9));
+            border-color: rgba(147, 197, 253, 0.66);
         }
 
-        /* Responsive */
-        @media (max-width: 768px) {
-            .burger-menu {
-                top: 15px;
-                right: 15px;
-                width: 55px;
-                height: 55px;
+        .hero-note {
+            margin-top: 16px;
+            color: #8fa6c2;
+            font-size: 13px;
+        }
+
+        @media (max-width: 900px) {
+            .cta-grid {
+                grid-template-columns: 1fr;
             }
 
-            .menu-overlay {
-                width: 100%;
-                right: -100%;
-                padding: 100px 30px 30px;
+            .hero-panel {
+                padding: 24px;
+            }
+        }
+
+        @media (max-width: 520px) {
+            .hero {
+                padding: 64px 12px 110px;
             }
 
-            .menu-overlay.active {
-                right: 0;
+            .hero-panel {
+                border-radius: 16px;
+                padding: 20px;
             }
 
-            .container {
-                padding: 30px;
-                padding-left: 30px;
-            }
-
-            .hero-text .line1,
-            .hero-text .line3 {
-                font-size: clamp(50px, 12vw, 100px);
-                letter-spacing: -3px;
-            }
-
-            .hero-text .line2 {
-                font-size: clamp(70px, 18vw, 140px);
-                letter-spacing: -5px;
-            }
-
-            .featured-button {
-                left: 50%;
-                transform: translateX(-50%);
-                bottom: 110px;
-                width: calc(100% - 40px);
-                max-width: 400px;
-            }
-
-            .featured-button a {
-                font-size: 20px;
-                padding: 20px 32px;
-                gap: 14px;
-                width: 100%;
-                justify-content: center;
-            }
-
-            .featured-button svg {
-                width: 28px;
-                height: 28px;
-            }
-
-            .social-footer {
-                bottom: 20px;
-                gap: 20px;
-            }
-            
-            .social-link {
-                width: 50px;
-                height: 50px;
-            }
-            
-            .social-link svg {
-                width: 26px;
-                height: 26px;
+            .hero-note {
+                font-size: 12px;
             }
         }
     </style>
 </head>
 <body>
-    <!-- Galaxy Background -->
-    <div class="starry-background" id="starryBg"></div>
-    
-    <!-- Milky Way Layer -->
-    <div class="milky-way"></div>
-    
-    <!-- Mountains -->
-    <div class="mountains">
-        <div class="mountain-layer-1"></div>
-        <div class="mountain-layer-2"></div>
-        <div class="mountain-layer-3"></div>
-    </div>
-
-    <!-- Burger Menu Icon -->
-    <div class="burger-menu" id="burgerMenu">
+    <div class="burger-menu" id="burgerMenu" aria-label="Open menu" role="button" tabindex="0">
         <div class="burger-line"></div>
         <div class="burger-line"></div>
         <div class="burger-line"></div>
     </div>
 
-    <!-- Menu Backdrop -->
     <div class="menu-backdrop" id="menuBackdrop"></div>
 
-    <!-- Menu Overlay -->
     <div class="menu-overlay" id="menuOverlay">
-        <nav>
+        <button class="close-button" id="closeMenu">&times;</button>
+        <nav class="menu-nav">
             <a href="/">Home</a>
             <a href="video-game-tools.html">Video Game Tools</a>
             <a href="applications.html">Applications</a>
@@ -498,70 +149,25 @@
         </nav>
     </div>
 
-    <!-- Main Content -->
-    <div class="container">
-        <div class="hero-text">
-            <span class="line1">SAM</span>
-            <span class="line2">JAKEMAN</span>
-            <span class="line3">.COM</span>
-        </div>
-    </div>
+    <main class="hero">
+        <section class="hero-panel" aria-label="Landing hero">
+            <div class="hero-kicker">✈ Aviation + Tech</div>
+            <h1>SAM<br>JAKEMAN</h1>
+            <p class="subtitle">A streamlined portal for tools, applications, and projects. Fast-loading, dark-themed, and tuned for desktop and mobile.</p>
 
-    <!-- Featured Tool Button -->
-    <div class="featured-button">
-        <a href="instagram-reel-downloader.html">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
-            Instagram Reel Downloader
-        </a>
-    </div>
+            <div class="cta-grid">
+                <a href="applications.html" class="cta primary">Open Applications</a>
+                <a href="https://panel.samjakeman.com" target="_blank" rel="noopener noreferrer" class="cta">Go to panel.samjakeman.com</a>
+                <a href="https://flyorapixel.com" target="_blank" rel="noopener noreferrer" class="cta">Visit flyorapixel.com</a>
+            </div>
 
-    <!-- Galaxy Background Script -->
-    <script src="galaxy-background.js"></script>
+            <p class="hero-note">Built for low overhead and smoother browsing.</p>
+        </section>
+    </main>
 
-    <!-- Menu Toggle Script -->
-    <script>
-        const burgerMenu = document.getElementById('burgerMenu');
-        const menuOverlay = document.getElementById('menuOverlay');
-        const menuBackdrop = document.getElementById('menuBackdrop');
-
-        function openMenu() {
-            burgerMenu.classList.add('active');
-            menuOverlay.classList.add('active');
-            menuBackdrop.classList.add('active');
-            document.body.style.overflow = 'hidden';
-        }
-
-        function closeMenu() {
-            burgerMenu.classList.remove('active');
-            menuOverlay.classList.remove('active');
-            menuBackdrop.classList.remove('active');
-            document.body.style.overflow = '';
-        }
-
-        burgerMenu.addEventListener('click', (e) => {
-            e.stopPropagation();
-            if (menuOverlay.classList.contains('active')) {
-                closeMenu();
-            } else {
-                openMenu();
-            }
-        });
-
-        // Close menu when clicking backdrop
-        menuBackdrop.addEventListener('click', closeMenu);
-
-        // Close menu on escape key
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape' && menuOverlay.classList.contains('active')) {
-                closeMenu();
-            }
-        });
-    </script>
-
-    <!-- Social Media Footer -->
     <div class="social-footer">
         <a href="https://www.instagram.com/sam_jakeman/" target="_blank" class="social-link" aria-label="Instagram">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073z"/></svg>
         </a>
         <a href="https://www.linkedin.com/in/sam-jakeman-6a5387113/" target="_blank" class="social-link" aria-label="LinkedIn">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
@@ -570,5 +176,7 @@
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
         </a>
     </div>
+
+    <script src="shared-navigation.js"></script>
 </body>
 </html>

@@ -1,105 +1,268 @@
-/* Shared Night Sky Background - Use across all pages */
+/* Shared lightweight dark theme */
+:root {
+    --bg-0: #070b14;
+    --bg-1: #0b1424;
+    --bg-2: #12223b;
+    --text-primary: #e8f1ff;
+    --text-secondary: #a9bbd4;
+    --surface: rgba(14, 22, 38, 0.78);
+    --surface-strong: rgba(11, 18, 30, 0.92);
+    --surface-border: rgba(137, 180, 255, 0.24);
+    --accent: #60a5fa;
+    --accent-hover: #93c5fd;
+    --success: #22c55e;
+    --danger: #ef4444;
+}
 
-/* Starry Sky Background with atmospheric blue */
-.starry-background {
+html,
+body {
+    min-height: 100%;
+}
+
+* {
+    scrollbar-color: rgba(147, 197, 253, 0.5) rgba(8, 13, 22, 0.8);
+}
+
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif !important;
+    background:
+        radial-gradient(1200px 700px at 12% -10%, rgba(96, 165, 250, 0.16), transparent 55%),
+        radial-gradient(900px 600px at 90% 10%, rgba(34, 211, 238, 0.1), transparent 52%),
+        linear-gradient(160deg, var(--bg-0) 0%, var(--bg-1) 45%, var(--bg-2) 100%) !important;
+    color: var(--text-primary) !important;
+}
+
+body::before {
+    content: "";
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
+    inset: 0;
+    pointer-events: none;
+    background:
+        linear-gradient(rgba(118, 170, 255, 0.06) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(118, 170, 255, 0.06) 1px, transparent 1px);
+    background-size: 34px 34px;
+    mask-image: radial-gradient(ellipse at 50% 20%, rgba(0, 0, 0, 0.85), transparent 75%);
+    opacity: 0.22;
     z-index: 0;
-    pointer-events: none;
-    background: 
-        radial-gradient(ellipse at 30% 20%, rgba(15, 20, 35, 0.4) 0%, transparent 40%),
-        radial-gradient(ellipse at 70% 80%, rgba(10, 15, 25, 0.3) 0%, transparent 35%),
-        #000000;
 }
 
-/* Milky Way Layer with Rotation - Realistic Colors with Blue Hues */
-.milky-way {
-    position: fixed;
-    top: -50%;
-    left: -50%;
-    width: 200%;
-    height: 200%;
+header,
+main,
+footer,
+.container,
+.social-footer {
+    position: relative;
     z-index: 1;
-    pointer-events: none;
-    background: 
-        radial-gradient(ellipse 180% 60% at 50% 50%, rgba(220, 215, 200, 0.08) 0%, transparent 50%),
-        radial-gradient(ellipse 160% 55% at 48% 51%, rgba(200, 195, 180, 0.07) 0%, transparent 48%),
-        radial-gradient(ellipse 140% 50% at 52% 49%, rgba(180, 175, 160, 0.06) 0%, transparent 45%),
-        radial-gradient(ellipse 120% 45% at 49% 52%, rgba(160, 155, 145, 0.055) 0%, transparent 43%),
-        radial-gradient(ellipse 100% 40% at 51% 48%, rgba(140, 135, 130, 0.05) 0%, transparent 40%),
-        radial-gradient(ellipse 90% 35% at 46% 50%, rgba(100, 140, 180, 0.045) 0%, transparent 38%),
-        radial-gradient(ellipse 80% 30% at 54% 50%, rgba(120, 160, 200, 0.04) 0%, transparent 35%),
-        radial-gradient(ellipse at 35% 55%, rgba(90, 110, 150, 0.035) 0%, transparent 30%),
-        radial-gradient(ellipse at 65% 45%, rgba(110, 130, 170, 0.03) 0%, transparent 28%),
-        radial-gradient(ellipse at 42% 58%, rgba(80, 60, 100, 0.025) 0%, transparent 25%),
-        radial-gradient(ellipse at 58% 42%, rgba(70, 90, 120, 0.022) 0%, transparent 23%);
-    animation: rotateSky 240s linear infinite;
-    transform-origin: center center;
 }
 
-@keyframes rotateSky {
-    from {
-        transform: rotate(0deg);
-    }
-    to {
-        transform: rotate(360deg);
-    }
+.card,
+.tool-card,
+.info-box,
+.result,
+main .container,
+body > .container {
+    background: var(--surface) !important;
+    border: 1px solid var(--surface-border) !important;
+    color: var(--text-primary) !important;
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.28) !important;
 }
 
-/* Social Media Footer */
+.card-description,
+.tool-card-description,
+.header p,
+.subtitle,
+.info-box p,
+.result,
+.badge,
+.back-link,
+.breadcrumb span,
+.breadcrumb a,
+footer,
+footer p {
+    color: var(--text-secondary) !important;
+}
+
+.card:hover,
+.tool-card:hover {
+    border-color: rgba(96, 165, 250, 0.5) !important;
+    box-shadow: 0 16px 36px rgba(0, 0, 0, 0.34) !important;
+    transform: translateY(-4px);
+}
+
+.badge {
+    background: rgba(96, 165, 250, 0.12) !important;
+    color: #9dc9ff !important;
+}
+
+a {
+    color: #9ac7ff;
+}
+
+a:hover {
+    color: #c6e0ff;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    color: var(--text-primary) !important;
+}
+
+input,
+select,
+textarea,
+button {
+    font: inherit;
+}
+
+input[type="text"],
+input[type="number"],
+input[type="range"] {
+    background: rgba(10, 17, 30, 0.78);
+    color: var(--text-primary);
+    border: 1px solid rgba(122, 161, 230, 0.36);
+    border-radius: 10px;
+}
+
+button,
+.btn-primary,
+.btn-secondary,
+.btn-danger {
+    border-radius: 10px !important;
+    border: 1px solid rgba(147, 197, 253, 0.3) !important;
+    color: #eef5ff !important;
+    transition: transform 0.18s ease, filter 0.18s ease, border-color 0.18s ease !important;
+}
+
+button:hover,
+.btn-primary:hover,
+.btn-secondary:hover,
+.btn-danger:hover {
+    transform: translateY(-1px);
+    filter: brightness(1.06);
+}
+
+button,
+.btn-primary,
+.back-btn {
+    background: linear-gradient(135deg, rgba(37, 99, 235, 0.82), rgba(14, 116, 144, 0.92)) !important;
+}
+
+.btn-secondary {
+    background: linear-gradient(135deg, rgba(22, 163, 74, 0.82), rgba(21, 128, 61, 0.92)) !important;
+}
+
+.btn-danger {
+    background: linear-gradient(135deg, rgba(220, 38, 38, 0.86), rgba(185, 28, 28, 0.94)) !important;
+}
+
+main {
+    padding-bottom: 110px !important;
+}
+
+.header,
+footer {
+    background: transparent !important;
+}
+
+.header h1 {
+    letter-spacing: -0.02em;
+}
+
+.controls {
+    background: rgba(16, 28, 45, 0.72) !important;
+    border: 1px solid rgba(137, 180, 255, 0.2) !important;
+}
+
+.control-group label,
+label {
+    color: #d6e7ff !important;
+}
+
+.info-box {
+    border-left-color: var(--accent) !important;
+}
+
+.card-arrow,
+.tool-card-arrow,
+.breadcrumb a {
+    color: #9dc9ff !important;
+}
+
+.card.minecraft,
+.tool-card.minecraft {
+    background: var(--surface) !important;
+    border-color: var(--surface-border) !important;
+}
+
+.progress-container {
+    background: rgba(255, 255, 255, 0.18) !important;
+}
+
+.progress-bar {
+    background: linear-gradient(90deg, #4f8cff, #22d3ee) !important;
+}
+
+canvas {
+    background: rgba(255, 255, 255, 0.96);
+    border-radius: 6px;
+}
+
 .social-footer {
     position: fixed;
-    bottom: 20px;
     left: 50%;
+    bottom: 18px;
     transform: translateX(-50%);
-    z-index: 1000;
     display: flex;
-    gap: 20px;
-    align-items: center;
+    gap: 14px;
 }
 
 .social-link {
-    display: flex;
+    width: 46px;
+    height: 46px;
+    border-radius: 12px;
+    border: 1px solid rgba(129, 172, 245, 0.34);
+    background: var(--surface-strong);
+    display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: 50px;
-    height: 50px;
-    background: rgba(255, 255, 255, 0.15);
-    border-radius: 12px;
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    text-decoration: none;
-    transition: all 0.2s ease;
+    transition: transform 0.2s ease, border-color 0.2s ease, background 0.2s ease;
 }
 
 .social-link:hover {
-    background: rgba(255, 255, 255, 0.25);
-    border-color: rgba(255, 255, 255, 0.5);
-    transform: translateY(-3px);
+    transform: translateY(-2px);
+    border-color: rgba(129, 172, 245, 0.7);
+    background: rgba(18, 28, 47, 0.95);
 }
 
 .social-link svg {
-    width: 28px;
-    height: 28px;
-    fill: white;
+    fill: var(--text-primary);
+    width: 24px;
+    height: 24px;
 }
 
 @media (max-width: 768px) {
+    body::before {
+        background-size: 26px 26px;
+        opacity: 0.18;
+    }
+
     .social-footer {
-        bottom: 15px;
-        gap: 15px;
+        gap: 10px;
+        bottom: 14px;
     }
-    
+
     .social-link {
-        width: 45px;
-        height: 45px;
+        width: 42px;
+        height: 42px;
+        border-radius: 10px;
     }
-    
+
     .social-link svg {
-        width: 24px;
-        height: 24px;
+        width: 21px;
+        height: 21px;
     }
 }

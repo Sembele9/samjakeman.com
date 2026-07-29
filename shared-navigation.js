@@ -11,6 +11,7 @@
         const burgerMenu = document.getElementById('burgerMenu');
         const menuOverlay = document.getElementById('menuOverlay');
         const menuBackdrop = document.getElementById('menuBackdrop');
+        const closeMenuButton = document.getElementById('closeMenu');
 
         if (!burgerMenu || !menuOverlay || !menuBackdrop) {
             console.error('Navigation elements not found');
@@ -38,6 +39,14 @@
             } else {
                 openMenu();
             }
+        });
+
+        if (closeMenuButton) {
+            closeMenuButton.addEventListener('click', closeMenu);
+        }
+
+        menuOverlay.querySelectorAll('a').forEach((link) => {
+            link.addEventListener('click', closeMenu);
         });
 
         // Close menu when clicking backdrop
