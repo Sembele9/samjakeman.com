@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="theme-color" content="#f4efe6">
+  <title>Wedding RSVP Dashboard</title>
+  <link rel="stylesheet" href="rsvp.css">
+  <link rel="stylesheet" href="rsvp-admin.css">
+  <script src="rsvp-admin.js" defer></script>
+</head>
+<body>
+  <main class="admin-shell">
+    <section class="login-card" id="loginView">
+      <div class="admin-monogram">Sam <span>&amp;</span> Viivi</div>
+      <p class="eyebrow">Private portal</p>
+      <h1>Guest list</h1>
+      <p class="login-intro">Enter the wedding password to view RSVP responses.</p>
+      <form id="loginForm">
+        <label class="full-field">
+          <span>Password</span>
+          <input id="password" type="password" autocomplete="current-password" required autofocus>
+        </label>
+        <p class="field-error" id="loginError" aria-live="polite"></p>
+        <button class="submit-button" type="submit">Open guest list <span aria-hidden="true">→</span></button>
+      </form>
+    </section>
+
+    <section class="dashboard" id="dashboardView" hidden>
+      <header class="dashboard-header">
+        <div>
+          <p class="eyebrow">Wedding RSVP</p>
+          <h1>Guest list</h1>
+          <p class="last-updated" id="lastUpdated"></p>
+        </div>
+        <div class="header-actions">
+          <button class="secondary-button" type="button" id="refreshButton">Refresh</button>
+          <button class="secondary-button" type="button" id="logoutButton">Log out</button>
+        </div>
+      </header>
+
+      <div class="stat-grid" aria-label="RSVP summary">
+        <article class="stat-card attending">
+          <span class="stat-label">Guests attending</span>
+          <strong id="attendingCount">0</strong>
+        </article>
+        <article class="stat-card declining">
+          <span class="stat-label">Guests not attending</span>
+          <strong id="decliningCount">0</strong>
+        </article>
+        <article class="stat-card responses">
+          <span class="stat-label">Responses</span>
+          <strong id="responseCount">0</strong>
+        </article>
+      </div>
+
+      <section class="table-card" aria-labelledby="attendingHeading">
+        <div class="table-heading">
+          <div>
+            <p class="step-label">Accepted</p>
+            <h2 id="attendingHeading">Guests attending</h2>
+          </div>
+          <span class="table-count" id="attendingTableCount">0 guests</span>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Names</th><th>Attending</th><th>Dietary requirements</th><th>Phone number(s)</th><th>Received</th></tr></thead>
+            <tbody id="attendingRows"></tbody>
+          </table>
+        </div>
+        <div class="empty-state" id="attendingEmpty" hidden>No attending guests yet.</div>
+      </section>
+
+      <section class="table-card" aria-labelledby="declinedHeading">
+        <div class="table-heading">
+          <div>
+            <p class="step-label">Declined</p>
+            <h2 id="declinedHeading">Unable to attend</h2>
+          </div>
+          <span class="table-count" id="declinedTableCount">0 guests</span>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Names</th><th>Attending</th><th>Dietary requirements</th><th>Phone number(s)</th><th>Received</th></tr></thead>
+            <tbody id="declinedRows"></tbody>
+          </table>
+        </div>
+        <div class="empty-state" id="declinedEmpty" hidden>No declined invitations yet.</div>
+      </section>
+    </section>
+  </main>
+</body>
+</html>

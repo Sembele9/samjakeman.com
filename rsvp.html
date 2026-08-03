@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f4efe6">
+  <title>Wedding RSVP</title>
+  <link rel="stylesheet" href="rsvp.css">
+  <script src="rsvp.js" defer></script>
+</head>
+<body>
+  <div class="page-shell">
+    <header class="wedding-header">
+      <p class="eyebrow" data-i18n="eyebrow">You are invited</p>
+      <div class="monogram" aria-hidden="true">Sam <span>&amp;</span> Viivi</div>
+      <h1 data-i18n="title">Celebrate with us</h1>
+      <p class="intro" data-i18n="intro">Please let us know if you can join us by completing the form below.</p>
+      <div class="flourish" aria-hidden="true"><span></span>❦<span></span></div>
+    </header>
+
+    <main class="form-card">
+      <form id="rsvpForm" novalidate>
+        <fieldset class="language-picker">
+          <legend data-i18n="languageLegend">Choose your language</legend>
+          <div class="language-options">
+            <label class="flag-choice">
+              <input type="radio" name="language" value="en" checked>
+              <span class="flag" aria-hidden="true">🇬🇧</span>
+              <span>English</span>
+            </label>
+            <label class="flag-choice">
+              <input type="radio" name="language" value="fi">
+              <span class="flag" aria-hidden="true">🇫🇮</span>
+              <span>Suomi</span>
+            </label>
+          </div>
+        </fieldset>
+
+        <div class="section-divider"></div>
+
+        <fieldset class="attendance-fieldset">
+          <legend data-i18n="attendingLegend">Will you be attending?</legend>
+          <div class="attendance-options">
+            <label class="attendance-choice">
+              <input type="radio" name="attending" value="yes" required>
+              <span class="radio-mark"></span>
+              <span data-i18n="attendingYes">Joyfully accepts</span>
+            </label>
+            <label class="attendance-choice">
+              <input type="radio" name="attending" value="no" required>
+              <span class="radio-mark"></span>
+              <span data-i18n="attendingNo">Regretfully declines</span>
+            </label>
+          </div>
+          <p class="field-error" id="attendingError" aria-live="polite"></p>
+        </fieldset>
+
+        <section aria-labelledby="guestHeading">
+          <div class="section-heading">
+            <div>
+              <p class="step-label" data-i18n="guestStep">Your party</p>
+              <h2 id="guestHeading" data-i18n="guestHeading">Guest details</h2>
+            </div>
+            <button type="button" class="text-button" id="addGuestButton">
+              <span aria-hidden="true">＋</span> <span data-i18n="addGuest">Add another person</span>
+            </button>
+          </div>
+          <div id="guestList"></div>
+        </section>
+
+        <div class="section-divider"></div>
+
+        <section aria-labelledby="contactHeading">
+          <p class="step-label" data-i18n="contactStep">Contact</p>
+          <h2 id="contactHeading" data-i18n="contactHeading">Phone number</h2>
+          <p class="field-help" data-i18n="contactHelp">In case we need to contact you about the celebration.</p>
+          <div class="phone-fields">
+            <label>
+              <span data-i18n="countryCode">Country code</span>
+              <input id="countryCode" name="countryCode" type="tel" inputmode="tel" value="+44" maxlength="8" autocomplete="tel-country-code" required>
+            </label>
+            <label>
+              <span data-i18n="phoneNumber">Mobile phone number</span>
+              <input id="phoneNumber" name="phoneNumber" type="tel" inputmode="tel" maxlength="24" autocomplete="tel-national" placeholder="7700 900123" required>
+            </label>
+          </div>
+          <p class="field-error" id="phoneError" aria-live="polite"></p>
+        </section>
+
+        <div class="form-status" id="formStatus" aria-live="polite"></div>
+        <button class="submit-button" type="submit" id="submitButton">
+          <span data-i18n="submit">Send RSVP</span>
+          <span aria-hidden="true">→</span>
+        </button>
+      </form>
+
+      <section class="success-card" id="successCard" hidden tabindex="-1">
+        <div class="success-mark" aria-hidden="true">✓</div>
+        <p class="eyebrow" data-i18n="thankYouEyebrow">Thank you</p>
+        <h2 data-i18n="thankYouTitle">Your RSVP has been received</h2>
+        <p data-i18n="thankYouBody">We have saved your response and look forward to celebrating with you.</p>
+        <button type="button" class="text-button centered" id="anotherResponse" data-i18n="anotherResponse">Send another response</button>
+      </section>
+    </main>
+
+    <footer data-i18n="footer">With love, Sam &amp; Viivi</footer>
+  </div>
+
+  <template id="guestTemplate">
+    <article class="guest-card">
+      <div class="guest-title-row">
+        <h3></h3>
+        <button type="button" class="remove-guest" aria-label="Remove guest">×</button>
+      </div>
+      <label class="full-field">
+        <span data-i18n="nameLabel">Full name</span>
+        <input class="guest-name" type="text" maxlength="100" autocomplete="name" required>
+      </label>
+      <fieldset class="dietary-fieldset">
+        <legend data-i18n="dietaryLegend">Dietary requirements</legend>
+        <p class="field-help" data-i18n="dietaryHelp">Select all that apply.</p>
+        <div class="dietary-options">
+          <label><input type="checkbox" value="none" checked><span data-i18n="dietNone">None</span></label>
+          <label><input type="checkbox" value="vegetarian"><span data-i18n="dietVegetarian">Vegetarian</span></label>
+          <label><input type="checkbox" value="vegan"><span data-i18n="dietVegan">Vegan</span></label>
+          <label><input type="checkbox" value="pescatarian"><span data-i18n="dietPescatarian">Pescatarian</span></label>
+          <label><input type="checkbox" value="gluten-free"><span data-i18n="dietGlutenFree">Gluten free</span></label>
+        </div>
+      </fieldset>
+      <p class="field-error guest-error" aria-live="polite"></p>
+    </article>
+  </template>
+</body>
+</html>

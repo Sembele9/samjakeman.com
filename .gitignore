@@ -1,0 +1,4 @@
+.data/
+.env
+npm-debug.log*
+server-local*.log
