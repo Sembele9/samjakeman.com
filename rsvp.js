@@ -1,4 +1,7 @@
 (() => {
+  const API_ORIGIN = ['localhost', '127.0.0.1'].includes(window.location.hostname)
+    ? ''
+    : 'https://api.samjakeman.com';
   const translations = {
     en: {
       eyebrow: 'You are invited', title: 'Celebrate with us', intro: 'Please let us know if you can join us by completing the form below.',
@@ -152,7 +155,7 @@
     submitButton.disabled = true;
     submitButton.querySelector('[data-i18n="submit"]').textContent = t('submitting');
     try {
-      const response = await fetch('/api/rsvps', {
+      const response = await fetch(`${API_ORIGIN}/api/rsvps`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(responseData)

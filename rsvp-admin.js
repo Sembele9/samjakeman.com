@@ -1,4 +1,7 @@
 (() => {
+  const API_ORIGIN = ['localhost', '127.0.0.1'].includes(window.location.hostname)
+    ? ''
+    : 'https://api.samjakeman.com';
   const loginView = document.querySelector('#loginView');
   const dashboardView = document.querySelector('#dashboardView');
   const loginForm = document.querySelector('#loginForm');
@@ -77,7 +80,7 @@
   }
 
   async function loadRsvps({ showLoginOnUnauthorised = true } = {}) {
-    const response = await fetch('/api/admin/rsvps');
+    const response = await fetch(`${API_ORIGIN}/api/admin/rsvps`, { credentials: 'include' });
     if (response.status === 401) {
       if (showLoginOnUnauthorised) showLogin();
       return false;
@@ -95,8 +98,9 @@
     const button = loginForm.querySelector('button');
     button.disabled = true;
     try {
-      const response = await fetch('/api/admin/login', {
+      const response = await fetch(`${API_ORIGIN}/api/admin/login`, {
         method: 'POST',
+        credentials: 'include',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ password: document.querySelector('#password').value })
       });
@@ -120,7 +124,11 @@
   });
 
   document.querySelector('#logoutButton').addEventListener('click', async () => {
-    try { await fetch('/api/admin/logout', { method: 'POST' }); } finally { showLogin(); }
+    try {
+      await fetch(`${API_ORIGIN}/api/admin/logout`, { method: 'POST', credentials: 'include' });
+    } finally {
+      showLogin();
+    }
   });
 
   loadRsvps().catch(showLogin);

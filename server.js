@@ -2,6 +2,7 @@ const crypto = require('crypto');
 const fs = require('fs/promises');
 const path = require('path');
 const express = require('express');
+const cors = require('cors');
 
 const app = express();
 const PORT = Number(process.env.PORT) || 3000;
@@ -19,6 +20,15 @@ let writeQueue = Promise.resolve();
 app.disable('x-powered-by');
 app.set('trust proxy', 1);
 app.use(express.json({ limit: '32kb' }));
+app.use(cors({
+  credentials: true,
+  origin(origin, callback) {
+    const productionOrigins = new Set(['https://samjakeman.com', 'https://www.samjakeman.com']);
+    const isLocal = /^http:\/\/(localhost|127\.0\.0\.1)(:\d+)?$/.test(origin || '');
+    if (!origin || productionOrigins.has(origin) || isLocal) return callback(null, true);
+    return callback(new Error('Origin not allowed by CORS.'));
+  }
+}));
 app.use((req, res, next) => {
   res.set({
     'Content-Security-Policy': "default-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self'; connect-src 'self'; base-uri 'none'; form-action 'self'; frame-ancestors 'none'",
