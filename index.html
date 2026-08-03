@@ -8,7 +8,6 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="shared-background.css">
-    <link rel="stylesheet" href="shared-navigation.css">
     <style>
         * {
             margin: 0;
@@ -66,7 +65,7 @@
             margin-top: 28px;
             display: grid;
             gap: 12px;
-            grid-template-columns: repeat(2, minmax(0, 1fr));
+            grid-template-columns: 1fr;
         }
 
         .cta {
@@ -185,24 +184,6 @@
     </style>
 </head>
 <body>
-    <div class="burger-menu" id="burgerMenu" aria-label="Open menu" role="button" tabindex="0">
-        <div class="burger-line"></div>
-        <div class="burger-line"></div>
-        <div class="burger-line"></div>
-    </div>
-
-    <div class="menu-backdrop" id="menuBackdrop"></div>
-
-    <div class="menu-overlay" id="menuOverlay">
-        <button class="close-button" id="closeMenu">&times;</button>
-        <nav class="menu-nav">
-            <a href="/">Home</a>
-            <a href="video-game-tools.html">Video Game Tools</a>
-            <a href="applications.html">Applications</a>
-            <a href="flight-tracker.html">Flight Tracker</a>
-        </nav>
-    </div>
-
     <main class="hero">
         <section class="hero-panel" aria-label="Landing hero">
             <div class="hero-kicker">✈ Aviation + Tech</div>
@@ -210,14 +191,7 @@
             <p class="subtitle">A streamlined portal for tools, applications, and projects.</p>
 
             <div class="cta-grid">
-                <a href="applications.html" class="cta primary">Open Applications</a>
-                <details class="cta-dropdown">
-                    <summary class="cta">Open External Sites</summary>
-                    <div class="cta-dropdown-menu">
-                        <a href="https://flyorapixel.com" target="_blank" rel="noopener noreferrer" class="cta-subitem">flyorapixel.com</a>
-                        <a href="https://panel.samjakeman.com" target="_blank" rel="noopener noreferrer" class="cta-subitem">panel.samjakeman.com</a>
-                    </div>
-                </details>
+                <a href="https://flyorapixel.com" target="_blank" rel="noopener noreferrer" class="cta primary">Visit FlyOraPixel.com</a>
             </div>
         </section>
     </main>
@@ -234,6 +208,5 @@
         </a>
     </div>
 
-    <script src="shared-navigation.js"></script>
 </body>
 </html>
