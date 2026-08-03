@@ -90,6 +90,19 @@ function saveRsvp(rsvp) {
   return operation;
 }
 
+function deleteRsvp(id) {
+  const operation = writeQueue.then(async () => {
+    const rsvps = await readRsvps();
+    const index = rsvps.findIndex((rsvp) => rsvp.id === id);
+    if (index === -1) return false;
+    rsvps.splice(index, 1);
+    await fs.writeFile(DATA_FILE, `${JSON.stringify(rsvps, null, 2)}\n`, { encoding: 'utf8', mode: 0o600 });
+    return true;
+  });
+  writeQueue = operation.catch(() => {});
+  return operation;
+}
+
 function parseCookies(req) {
   return Object.fromEntries((req.headers.cookie || '').split(';').filter(Boolean).map((cookie) => {
     const separator = cookie.indexOf('=');
@@ -168,6 +181,19 @@ app.get('/api/admin/rsvps', requireAdmin, async (req, res, next) => {
   try {
     const rsvps = await readRsvps();
     res.json({ rsvps: rsvps.sort((a, b) => b.submittedAt.localeCompare(a.submittedAt)) });
+  } catch (error) {
+    next(error);
+  }
+});
+
+app.delete('/api/admin/rsvps/:id', requireAdmin, async (req, res, next) => {
+  try {
+    if (!/^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(req.params.id)) {
+      return res.status(400).json({ error: 'Invalid RSVP identifier.' });
+    }
+    const deleted = await deleteRsvp(req.params.id);
+    if (!deleted) return res.status(404).json({ error: 'RSVP not found.' });
+    res.status(204).end();
   } catch (error) {
     next(error);
   }

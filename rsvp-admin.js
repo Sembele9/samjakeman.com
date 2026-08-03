@@ -45,6 +45,27 @@
     return list;
   }
 
+  async function deleteResponse(response, button) {
+    const names = response.guests.map((guest) => guest.name).join(' & ');
+    if (!window.confirm(`Delete the RSVP response from ${names}? This cannot be undone.`)) return;
+    button.disabled = true;
+    try {
+      const result = await fetch(`${API_ORIGIN}/api/admin/rsvps/${encodeURIComponent(response.id)}`, {
+        method: 'DELETE',
+        credentials: 'include'
+      });
+      if (result.status === 401) {
+        showLogin();
+        return;
+      }
+      if (!result.ok) throw new Error('Delete failed');
+      await loadRsvps();
+    } catch (error) {
+      window.alert('The RSVP could not be deleted. Please try again.');
+      button.disabled = false;
+    }
+  }
+
   function renderTable(rsvps, targetId, emptyId) {
     const target = document.querySelector(targetId);
     const empty = document.querySelector(emptyId);
@@ -60,6 +81,13 @@
       appendCell(row, dietaryList(response.guests));
       appendCell(row, `${response.phone.countryCode} ${response.phone.number}`);
       appendCell(row, new Intl.DateTimeFormat('en-GB', { dateStyle: 'medium', timeStyle: 'short' }).format(new Date(response.submittedAt)), 'date-cell');
+      const deleteButton = document.createElement('button');
+      deleteButton.type = 'button';
+      deleteButton.className = 'delete-button';
+      deleteButton.textContent = 'Delete';
+      deleteButton.setAttribute('aria-label', `Delete RSVP from ${response.guests.map((guest) => guest.name).join(' and ')}`);
+      deleteButton.addEventListener('click', () => deleteResponse(response, deleteButton));
+      appendCell(row, deleteButton, 'delete-cell');
       target.append(row);
     });
   }
