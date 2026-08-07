@@ -77,13 +77,16 @@
           <div class="phone-fields">
             <label>
               <span data-i18n="countryCode">Country code</span>
-              <input id="countryCode" name="countryCode" type="tel" inputmode="tel" value="+44" maxlength="8" autocomplete="tel-country-code" required>
+              <select id="countryCode" name="countryCode" autocomplete="tel-country-code" required>
+                <option value="GB" data-calling-code="+44">🇬🇧 United Kingdom (+44)</option>
+              </select>
             </label>
             <label>
               <span data-i18n="phoneNumber">Mobile phone number</span>
-              <input id="phoneNumber" name="phoneNumber" type="tel" inputmode="tel" maxlength="24" autocomplete="tel-national" placeholder="7700 900123" required>
+              <input id="phoneNumber" name="phoneNumber" type="tel" inputmode="tel" maxlength="24" autocomplete="tel-national" placeholder="e.g. 07835 799105" data-i18n-placeholder="phonePlaceholder" required>
             </label>
           </div>
+          <p class="field-help phone-help" data-i18n="phoneFormatHelp">Local numbers beginning with 0 are accepted.</p>
           <p class="field-error" id="phoneError" aria-live="polite"></p>
         </section>
 

@@ -58,6 +58,7 @@ function validateRsvp(body) {
     };
   });
   const countryCode = cleanText(body.phone?.countryCode, 8).replace(/[^+\d]/g, '');
+  const country = cleanText(body.phone?.country, 2).toUpperCase();
   const number = cleanText(body.phone?.number, 24).replace(/[^\d\s()-]/g, '');
 
   if (attending !== true && attending !== false) return { error: 'Please select whether you are attending.' };
@@ -65,7 +66,14 @@ function validateRsvp(body) {
   if (!/^\+\d{1,4}$/.test(countryCode)) return { error: 'Please enter a valid country code, for example +44.' };
   if (number.replace(/\D/g, '').length < 6) return { error: 'Please enter a valid phone number.' };
 
-  return { value: { attending, locale, guests, phone: { countryCode, number } } };
+  return {
+    value: {
+      attending,
+      locale,
+      guests,
+      phone: { countryCode, country: /^[A-Z]{2}$/.test(country) ? country : '', number }
+    }
+  };
 }
 
 async function readRsvps() {

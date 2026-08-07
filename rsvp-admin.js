@@ -32,6 +32,12 @@
     row.append(cell);
   }
 
+  function countryFlag(region) {
+    return /^[A-Z]{2}$/.test(region || '')
+      ? [...region].map((letter) => String.fromCodePoint(127397 + letter.charCodeAt(0))).join('')
+      : '';
+  }
+
   function dietaryList(guests) {
     const list = document.createElement('ul');
     list.className = 'diet-list';
@@ -79,7 +85,7 @@
       status.textContent = response.attending ? 'Yes' : 'No';
       appendCell(row, status);
       appendCell(row, dietaryList(response.guests));
-      appendCell(row, `${response.phone.countryCode} ${response.phone.number}`);
+      appendCell(row, `${countryFlag(response.phone.country)} ${response.phone.countryCode} ${response.phone.number}`.trim());
       appendCell(row, new Intl.DateTimeFormat('en-GB', { dateStyle: 'medium', timeStyle: 'short' }).format(new Date(response.submittedAt)), 'date-cell');
       const deleteButton = document.createElement('button');
       deleteButton.type = 'button';
