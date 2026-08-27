@@ -168,6 +168,17 @@ details.faq-section:not([open]) .faq-section-heading {
 
 .stay-dates { color: var(--sage-dark); }
 
+.hotel-trip-heading {
+  margin: 0;
+  color: var(--sage-dark);
+  font-family: "Segoe UI", Arial, sans-serif;
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1.55;
+}
+
+.hotel-recommendation h3 { margin-bottom: 12px; }
+
 .app-store-buttons {
   display: flex;
   flex-wrap: wrap;
