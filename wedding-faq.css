@@ -1,0 +1,359 @@
+/* Wedding FAQ page - layout specific styles (shares theme variables with rsvp.css) */
+
+.countdown {
+  display: flex;
+  justify-content: center;
+  gap: clamp(8px, 2.5vw, 18px);
+  margin: 18px auto 0;
+  padding: 16px clamp(12px, 4vw, 26px);
+  border: 1px solid var(--sage-dark);
+  border-radius: 12px;
+  background: #f4f8f4;
+  box-shadow: 0 10px 24px rgba(62, 85, 71, .1);
+  width: fit-content;
+}
+
+.countdown-unit {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 56px;
+}
+
+.countdown-unit + .countdown-unit { border-left: 1px solid var(--line); padding-left: clamp(8px, 2.5vw, 18px); }
+
+.countdown-value {
+  font-family: Georgia, serif;
+  font-size: clamp(1.6rem, 6vw, 2.4rem);
+  font-weight: 900;
+  color: var(--sage-dark);
+  line-height: 1;
+}
+
+.countdown-label {
+  margin-top: 4px;
+  color: var(--muted);
+  font-size: .68rem;
+  font-weight: 700;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+.faq-card { text-align: left; }
+
+.faq-section-heading {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 16px;
+  scroll-margin-top: 24px;
+  cursor: pointer;
+  list-style: none;
+}
+
+.faq-section-heading::-webkit-details-marker { display: none; }
+
+.faq-section-heading::after {
+  content: '▸';
+  margin-left: auto;
+  color: var(--sage);
+  font-size: 1.1rem;
+  transition: transform .18s ease;
+}
+
+details.faq-section[open] > .faq-section-heading::after { transform: rotate(90deg); }
+
+.faq-section-heading:hover,
+.faq-section-heading:focus-visible {
+  color: var(--rose);
+  outline: none;
+}
+
+details.faq-section {
+  margin-bottom: 0;
+}
+
+details.faq-section:not([open]) .faq-section-heading {
+  margin-bottom: 0;
+}
+
+.faq-icon {
+  display: grid;
+  place-items: center;
+  flex: 0 0 auto;
+  width: 48px;
+  height: 48px;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  background: #f7faf7;
+  font-size: 1.4rem;
+}
+
+.faq-body { color: var(--ink); }
+.faq-body p { margin: 0; }
+.faq-body p + p { margin-top: 12px; }
+
+.flight-routes {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 16px;
+}
+
+.flight-tabs {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 16px;
+}
+
+.flight-tab {
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #fff;
+  overflow: hidden;
+}
+
+.flight-tab summary {
+  padding: 14px 18px;
+  color: var(--sage-dark);
+  font-family: Georgia, serif;
+  font-size: 1.05rem;
+  font-weight: 700;
+  cursor: pointer;
+  list-style: none;
+}
+
+.flight-tab summary::-webkit-details-marker { display: none; }
+
+.flight-tab summary::before {
+  content: '▸';
+  display: inline-block;
+  margin-right: 10px;
+  color: var(--sage);
+  transition: transform .18s ease;
+}
+
+.flight-tab[open] summary::before { transform: rotate(90deg); }
+
+.flight-tab summary:hover,
+.flight-tab summary:focus-visible { background: #f4f8f4; outline: none; }
+
+.flight-table {
+  width: 100%;
+  border-collapse: collapse;
+  border-top: 1px solid var(--line);
+  font-size: .88rem;
+}
+
+.flight-table th,
+.flight-table td {
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--line);
+  text-align: left;
+  white-space: nowrap;
+}
+
+.flight-table th {
+  color: var(--muted);
+  font-size: .72rem;
+  font-weight: 700;
+  letter-spacing: .05em;
+  text-transform: uppercase;
+  background: #f7faf7;
+}
+
+.flight-table tbody tr:last-child td { border-bottom: 0; }
+.flight-table tbody tr:hover { background: rgba(92, 113, 99, .05); }
+
+.stay-dates { color: var(--sage-dark); }
+
+.app-store-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.app-store-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 18px;
+  border: 1px solid var(--sage-dark);
+  border-radius: 8px;
+  background: var(--sage-dark);
+  color: #fff;
+  text-decoration: none;
+  transition: .18s ease;
+}
+
+.app-store-badge:hover,
+.app-store-badge:focus-visible {
+  background: #31473a;
+  transform: translateY(-1px);
+  outline: none;
+}
+
+.app-store-badge svg { width: 26px; height: 26px; fill: #fff; flex: 0 0 auto; }
+
+.app-store-badge span {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.15;
+  font-weight: 700;
+  font-size: .96rem;
+}
+
+.app-store-badge small {
+  font-weight: 400;
+  font-size: .68rem;
+  letter-spacing: .02em;
+}
+
+.booking-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 20px;
+  border: 1px solid var(--sage-dark);
+  border-radius: 8px;
+  background: var(--sage-dark);
+  color: #fff;
+  text-decoration: none;
+  font-weight: 700;
+  font-size: .92rem;
+  transition: .18s ease;
+}
+
+.booking-badge:hover,
+.booking-badge:focus-visible {
+  background: #31473a;
+  transform: translateY(-1px);
+  outline: none;
+}
+
+.map-embed {
+  position: relative;
+  display: block;
+  margin-top: 16px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  overflow: hidden;
+  aspect-ratio: 16 / 10;
+  text-decoration: none;
+}
+
+.map-embed iframe {
+  width: 100%;
+  height: 100%;
+  border: 0;
+  pointer-events: none;
+}
+
+.map-embed-overlay {
+  position: absolute;
+  right: 12px;
+  bottom: 12px;
+  padding: 8px 14px;
+  border-radius: 999px;
+  background: rgba(38, 50, 43, .88);
+  color: #fff;
+  font-size: .82rem;
+  font-weight: 700;
+  box-shadow: 0 8px 18px rgba(0, 0, 0, .2);
+  transition: transform .18s ease;
+}
+
+.map-embed:hover .map-embed-overlay,
+.map-embed:focus-visible .map-embed-overlay {
+  transform: translateY(-2px);
+}
+
+.faq-placeholder {
+  margin: 0;
+  padding: 16px 18px;
+  border: 1px dashed var(--line);
+  border-radius: 8px;
+  background: rgba(250, 248, 242, .6);
+  color: var(--muted);
+  font-style: italic;
+}
+
+/* WhatsApp floating action button */
+.whatsapp-fab {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  z-index: 50;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 20px;
+  border-radius: 999px;
+  background: #25d366;
+  color: #fff;
+  text-decoration: none;
+  font-weight: 700;
+  font-size: .92rem;
+  box-shadow: 0 12px 28px rgba(37, 211, 102, .38);
+  transition: transform .18s ease, box-shadow .18s ease;
+}
+
+.whatsapp-fab:hover,
+.whatsapp-fab:focus-visible {
+  transform: translateY(-2px);
+  box-shadow: 0 16px 32px rgba(37, 211, 102, .46);
+  outline: none;
+}
+
+.whatsapp-fab svg { width: 24px; height: 24px; fill: #fff; flex: 0 0 auto; }
+
+.back-to-top {
+  position: fixed;
+  left: 20px;
+  bottom: 20px;
+  z-index: 50;
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  border: 1px solid var(--sage-dark);
+  border-radius: 50%;
+  background: #fff;
+  color: var(--sage-dark);
+  box-shadow: 0 12px 28px rgba(38, 50, 43, .16);
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(8px);
+  transition: opacity .18s ease, transform .18s ease, background .18s ease;
+}
+
+.back-to-top.visible {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0);
+}
+
+.back-to-top:hover,
+.back-to-top:focus-visible {
+  background: #f4f8f4;
+  outline: none;
+}
+
+.back-to-top svg { width: 22px; height: 22px; fill: currentColor; }
+
+@media (max-width: 620px) {
+  .faq-section-heading { gap: 12px; }
+  .faq-icon { width: 42px; height: 42px; font-size: 1.2rem; }
+  .flight-tab { overflow-x: auto; }
+  .flight-table { font-size: .8rem; }
+  .flight-table th, .flight-table td { padding: 8px 10px; }
+  .back-to-top { left: 14px; bottom: 14px; width: 44px; height: 44px; }
+  .whatsapp-fab {
+    right: 14px;
+    bottom: 14px;
+    padding: 13px 16px;
+  }
+  .whatsapp-label { display: none; }
+}
