@@ -48,3 +48,17 @@
   window.addEventListener('scroll', toggleVisibility, { passive: true });
   toggleVisibility();
 })();
+
+(function () {
+  const faqSections = document.querySelectorAll('main > details.faq-section');
+
+  faqSections.forEach((section) => {
+    section.querySelector(':scope > summary').addEventListener('click', () => {
+      faqSections.forEach((otherSection) => {
+        if (otherSection !== section && otherSection.open) {
+          otherSection.open = false;
+        }
+      });
+    });
+  });
+})();

@@ -177,7 +177,24 @@ details.faq-section:not([open]) .faq-section-heading {
   line-height: 1.55;
 }
 
-.hotel-recommendation h3 { margin-bottom: 12px; }
+.ferry-trip-details {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  margin: 16px 0;
+}
+
+.ferry-trip {
+  padding: 16px 18px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #fff;
+}
+
+.ferry-trip p { margin: 0; }
+.ferry-trip .step-label { margin-bottom: 6px; }
+.ferry-trip-route { color: var(--ink); }
+.ferry-trip .stay-dates { margin-top: 5px; font-size: .9rem; }
 
 .app-store-buttons {
   display: flex;
@@ -357,6 +374,7 @@ details.faq-section:not([open]) .faq-section-heading {
 @media (max-width: 620px) {
   .faq-section-heading { gap: 12px; }
   .faq-icon { width: 42px; height: 42px; font-size: 1.2rem; }
+  .ferry-trip-details { grid-template-columns: 1fr; }
   .flight-tab { overflow-x: auto; }
   .flight-table { font-size: .8rem; }
   .flight-table th, .flight-table td { padding: 8px 10px; }
