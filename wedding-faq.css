@@ -196,6 +196,103 @@ details.faq-section:not([open]) .faq-section-heading {
 .ferry-trip-route { color: var(--ink); }
 .ferry-trip .stay-dates { margin-top: 5px; font-size: .9rem; }
 
+.travel-warning {
+  margin: 0 0 16px;
+  padding: 14px 18px;
+  border-left: 4px solid var(--rose);
+  border-radius: 4px 8px 8px 4px;
+  background: rgba(164, 107, 101, .08);
+  color: var(--ink);
+}
+
+.travel-warning strong { color: var(--rose); }
+
+.other-info-heading {
+  margin: 0 0 12px;
+  color: var(--sage-dark);
+  font-family: Georgia, serif;
+  font-size: 1.15rem;
+}
+
+.weekend-itinerary {
+  display: grid;
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.weekend-itinerary li {
+  position: relative;
+  padding: 14px 16px 14px 20px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #fff;
+}
+
+.weekend-itinerary li::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 4px;
+  border-radius: 8px 0 0 8px;
+  background: var(--sage);
+}
+
+.weekend-itinerary time {
+  display: block;
+  margin-bottom: 4px;
+  color: var(--sage-dark);
+  font-size: .78rem;
+  font-weight: 800;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+}
+
+.weekend-itinerary p { margin: 0; }
+
+.itinerary-note {
+  margin: 14px 0 24px !important;
+  padding: 12px 14px;
+  border-radius: 8px;
+  background: #f4f8f4;
+  color: var(--muted);
+  font-size: .92rem;
+}
+
+.useful-reminders {
+  display: grid;
+  gap: 9px;
+  margin: 0;
+  padding-left: 22px;
+}
+
+.useful-reminders li::marker { color: var(--rose); }
+
+.whatsapp-info {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  margin-top: 24px;
+  padding: 18px;
+  border: 1px solid rgba(37, 211, 102, .35);
+  border-radius: 10px;
+  background: rgba(37, 211, 102, .07);
+}
+
+.whatsapp-info h3 {
+  margin: 0 0 5px;
+  color: var(--sage-dark);
+  font-family: Georgia, serif;
+  font-size: 1.05rem;
+}
+
+.whatsapp-info p { margin: 0; }
+.whatsapp-info .booking-badge { flex: 0 0 auto; }
+
 .app-store-buttons {
   display: flex;
   flex-wrap: wrap;
@@ -375,6 +472,8 @@ details.faq-section:not([open]) .faq-section-heading {
   .faq-section-heading { gap: 12px; }
   .faq-icon { width: 42px; height: 42px; font-size: 1.2rem; }
   .ferry-trip-details { grid-template-columns: 1fr; }
+  .whatsapp-info { align-items: stretch; flex-direction: column; }
+  .whatsapp-info .booking-badge { justify-content: center; }
   .flight-tab { overflow-x: auto; }
   .flight-table { font-size: .8rem; }
   .flight-table th, .flight-table td { padding: 8px 10px; }
